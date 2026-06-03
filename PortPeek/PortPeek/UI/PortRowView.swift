@@ -56,10 +56,6 @@ struct PortRowView: View {
                                 registry.release(port: entry.port)
                             }
                         }
-                        Divider()
-                        Button("Remove from list", role: .destructive) {
-                            registry.removePort(entry.port)
-                        }
                     } label: {
                         Image(systemName: "ellipsis").font(.system(size: 11))
                     }
