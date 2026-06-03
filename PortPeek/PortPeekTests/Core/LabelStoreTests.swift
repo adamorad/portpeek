@@ -33,8 +33,6 @@ final class LabelStoreTests: XCTestCase {
     }
 
     func test_persistsAcrossReload() {
-        store.setLabel("Persisted", for: 8080)
-        // Create a new store with the same UserDefaults suite
         let suiteName = "test.persist.\(UUID().uuidString)"
         let defaults = UserDefaults(suiteName: suiteName)!
         let store1 = LabelStore(defaults: defaults)
