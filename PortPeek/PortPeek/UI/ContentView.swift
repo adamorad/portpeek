@@ -5,14 +5,10 @@ struct ContentView: View {
     @State private var showSettings = false
 
     var body: some View {
-        ZStack {
-            VisualEffectView(material: .hudWindow, blendingMode: .behindWindow)
-                .ignoresSafeArea()
-
+        Group {
             if showSettings {
                 SettingsView(onDismiss: { showSettings = false })
                     .environmentObject(registry)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                     .transition(.asymmetric(
                         insertion: .move(edge: .trailing),
                         removal: .move(edge: .trailing)
@@ -69,6 +65,10 @@ struct ContentView: View {
             }
         }
         .frame(width: 316)
+        .background(
+            VisualEffectView(material: .hudWindow, blendingMode: .behindWindow)
+                .ignoresSafeArea()
+        )
         .animation(.easeInOut(duration: 0.18), value: showSettings)
     }
 }
