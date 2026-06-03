@@ -9,55 +9,66 @@ struct ContentView: View {
             VisualEffectView(material: .hudWindow, blendingMode: .behindWindow)
                 .ignoresSafeArea()
 
-            VStack(spacing: 0) {
-                HStack {
-                    Text("PortPeek")
-                        .font(.system(size: 13, weight: .bold))
-                        .foregroundStyle(.primary)
-                    Spacer()
-                    MCPStatusPill(isRunning: registry.isMCPServerRunning)
-                    Button { showSettings = true } label: {
-                        Image(systemName: "gearshape.fill")
-                            .font(.system(size: 13))
-                            .foregroundStyle(.secondary)
-                    }
-                    .buttonStyle(.plain)
-                }
-                .padding(.horizontal, 14)
-                .padding(.vertical, 11)
-
-                Divider().opacity(0.4)
-
-                if registry.entries.filter({ $0.status != .available }).isEmpty {
-                    EmptyStateView(monitoredCount: registry.monitoredPorts.count)
-                } else {
-                    PortListView()
-                }
-
-                Divider().opacity(0.4)
-
-                HStack {
-                    Button("＋ Add port") { showSettings = true }
+            if showSettings {
+                SettingsView(onDismiss: { showSettings = false })
+                    .environmentObject(registry)
+                    .transition(.asymmetric(
+                        insertion: .move(edge: .trailing),
+                        removal: .move(edge: .trailing)
+                    ))
+            } else {
+                VStack(spacing: 0) {
+                    HStack {
+                        Text("PortPeek")
+                            .font(.system(size: 13, weight: .bold))
+                            .foregroundStyle(.primary)
+                        Spacer()
+                        MCPStatusPill(isRunning: registry.isMCPServerRunning)
+                        Button { showSettings = true } label: {
+                            Image(systemName: "gearshape.fill")
+                                .font(.system(size: 13))
+                                .foregroundStyle(.secondary)
+                        }
                         .buttonStyle(.plain)
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundStyle(.blue)
-                    Spacer()
-                    if let last = registry.lastScanned {
-                        TimelineView(.periodic(from: .now, by: 1)) { _ in
-                            Text("scanned \(max(0, Int(-last.timeIntervalSinceNow)))s ago")
-                                .font(.system(size: 11))
-                                .foregroundStyle(.tertiary)
+                    }
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 11)
+
+                    Divider().opacity(0.4)
+
+                    if registry.entries.filter({ $0.status != .available }).isEmpty {
+                        EmptyStateView(monitoredCount: registry.monitoredPorts.count)
+                    } else {
+                        PortListView()
+                    }
+
+                    Divider().opacity(0.4)
+
+                    HStack {
+                        Button("＋ Add port") { showSettings = true }
+                            .buttonStyle(.plain)
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundStyle(.blue)
+                        Spacer()
+                        if let last = registry.lastScanned {
+                            TimelineView(.periodic(from: .now, by: 1)) { _ in
+                                Text("scanned \(max(0, Int(-last.timeIntervalSinceNow)))s ago")
+                                    .font(.system(size: 11))
+                                    .foregroundStyle(.tertiary)
+                            }
                         }
                     }
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 9)
                 }
-                .padding(.horizontal, 14)
-                .padding(.vertical, 9)
+                .transition(.asymmetric(
+                    insertion: .move(edge: .leading),
+                    removal: .move(edge: .leading)
+                ))
             }
         }
         .frame(width: 316)
-        .sheet(isPresented: $showSettings) {
-            SettingsView().environmentObject(registry)
-        }
+        .animation(.easeInOut(duration: 0.18), value: showSettings)
     }
 }
 

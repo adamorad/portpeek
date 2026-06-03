@@ -2,8 +2,8 @@ import SwiftUI
 import ServiceManagement
 
 struct SettingsView: View {
+    let onDismiss: () -> Void
     @EnvironmentObject var registry: PortRegistry
-    @Environment(\.dismiss) var dismiss
     @State private var newPortText = ""
     @State private var showAddPort = false
     @AppStorage("portpeek.scanInterval") private var scanInterval = 3.0
@@ -14,7 +14,7 @@ struct SettingsView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Button("‹ Back") { dismiss() }
+                Button("‹ Back") { onDismiss() }
                     .buttonStyle(.plain)
                     .foregroundStyle(.blue)
                 Spacer()
