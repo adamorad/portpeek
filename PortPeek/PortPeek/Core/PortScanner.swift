@@ -1,5 +1,6 @@
 import Foundation
 import Network
+import os
 
 final class PortScanner {
     let timeout: TimeInterval
@@ -24,12 +25,14 @@ final class PortScanner {
     }
 
     func probePort(_ port: Int) async -> Bool {
-        await withCheckedContinuation { continuation in
-            guard let nwPort = NWEndpoint.Port(rawValue: UInt16(clamping: port)) else {
-                continuation.resume(returning: false)
-                return
-            }
+        guard port >= 1, port <= 65535,
+              let nwPort = NWEndpoint.Port(rawValue: UInt16(port)) else {
+            return false
+        }
+        return await withCheckedContinuation { continuation in
             let conn = NWConnection(host: "127.0.0.1", port: nwPort, using: .tcp)
+            // Both stateUpdateHandler and asyncAfter are dispatched on this serial queue,
+            // so reads/writes to didResume are serialized without additional locking.
             let queue = DispatchQueue(label: "portpeek.probe.\(port)")
             var didResume = false
 

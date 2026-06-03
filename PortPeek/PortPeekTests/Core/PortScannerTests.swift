@@ -28,6 +28,14 @@ final class PortScannerTests: XCTestCase {
         XCTAssertFalse(results.contains(19998))
         XCTAssertFalse(results.contains(19997))
     }
+
+    func test_probePort_returnsFalseForInvalidPort() async {
+        let scanner = PortScanner(timeout: 0.5)
+        let zero = await scanner.probePort(0)
+        let tooBig = await scanner.probePort(99999)
+        XCTAssertFalse(zero)
+        XCTAssertFalse(tooBig)
+    }
 }
 
 final class TCPTestServer {
@@ -36,14 +44,23 @@ final class TCPTestServer {
 
     init() throws {
         let l = try NWListener(using: .tcp, on: 0)
-        l.stateUpdateHandler = { _ in }
         l.newConnectionHandler = { conn in conn.cancel() }
+
+        let sem = DispatchSemaphore(value: 0)
+        l.stateUpdateHandler = { state in
+            if case .ready = state { sem.signal() }
+        }
         l.start(queue: .global())
-        // Allow the listener to bind and get an assigned port
-        Thread.sleep(forTimeInterval: 0.15)
-        let assigned = l.port.flatMap { Int($0.rawValue) } ?? 0
-        if assigned == 0 { throw XCTSkip("Could not bind test listener") }
-        self.port = assigned
+        guard sem.wait(timeout: .now() + 3) == .success else {
+            l.cancel()
+            throw XCTSkip("Test listener did not reach ready state in time")
+        }
+
+        guard let nwPort = l.port, nwPort != .any else {
+            l.cancel()
+            throw XCTSkip("Test listener has no assigned port")
+        }
+        self.port = Int(nwPort.rawValue)
         self.listener = l
     }
 
