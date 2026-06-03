@@ -1,0 +1,39 @@
+name: PortPeek
+options:
+  bundleIdPrefix: com.portpeek
+  deploymentTarget:
+    macOS: "14.0"
+  xcodeVersion: "15.0"
+  createIntermediateGroups: true
+targets:
+  PortPeek:
+    type: application
+    platform: macOS
+    sources:
+      - PortPeek
+    settings:
+      PRODUCT_NAME: PortPeek
+      PRODUCT_BUNDLE_IDENTIFIER: com.portpeek.app
+      CODE_SIGN_ENTITLEMENTS: PortPeek/PortPeek.entitlements
+      INFOPLIST_FILE: PortPeek/Info.plist
+      SWIFT_VERSION: "5.9"
+      MACOSX_DEPLOYMENT_TARGET: "14.0"
+    info:
+      path: PortPeek/Info.plist
+      properties:
+        LSUIElement: true
+        CFBundleName: PortPeek
+        CFBundleDisplayName: PortPeek
+        CFBundleVersion: "1"
+        CFBundleShortVersionString: "1.0"
+  PortPeekTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - PortPeekTests
+    dependencies:
+      - target: PortPeek
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.portpeek.tests
+      SWIFT_VERSION: "5.9"
+      MACOSX_DEPLOYMENT_TARGET: "14.0"

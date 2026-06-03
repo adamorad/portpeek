@@ -1,0 +1,412 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		436E9E759EC8FF5CFABD4947 /* PortPeekApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAEBE243B3D5EC38D594BD9 /* PortPeekApp.swift */; };
+		5B36691D9E71AC423C69F3F0 /* PortPeekTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAFDAE90F73CF2DFC1454CE /* PortPeekTests.swift */; };
+		F55C5F0F0CF05D9C4E96DDD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D557091FC0A39780CDD6651E /* AppDelegate.swift */; };
+		FC1C59F246BC91D1C0DC9186 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91A519C3A96F6BF6CC20F558 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BBBE5DE10FC72ADE9516D05E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E940A40A7D4B02AB37C4496 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E504AE015435269DD0FA121B;
+			remoteInfo = PortPeek;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4BAEBE243B3D5EC38D594BD9 /* PortPeekApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortPeekApp.swift; sourceTree = "<group>"; };
+		91A519C3A96F6BF6CC20F558 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		92E684808D1A9936EFDB519F /* PortPeek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PortPeek.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		93B18C8CB473E89A2E5FD552 /* PortPeekTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PortPeekTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9DAFDAE90F73CF2DFC1454CE /* PortPeekTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortPeekTests.swift; sourceTree = "<group>"; };
+		AF706D2E02E9DE46D914AE3A /* PortPeek.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PortPeek.entitlements; sourceTree = "<group>"; };
+		C3ACFF526B52D20B98B32AC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D557091FC0A39780CDD6651E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		21A71EB9272C51BFB5DECDF9 = {
+			isa = PBXGroup;
+			children = (
+				D0CFAEDDE79DAC9F270132EA /* PortPeek */,
+				E27F38A02EA925CF4D52BFE1 /* PortPeekTests */,
+				F0E0FF4ABF0907C8151B16BE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D0CFAEDDE79DAC9F270132EA /* PortPeek */ = {
+			isa = PBXGroup;
+			children = (
+				D557091FC0A39780CDD6651E /* AppDelegate.swift */,
+				91A519C3A96F6BF6CC20F558 /* Assets.xcassets */,
+				C3ACFF526B52D20B98B32AC1 /* Info.plist */,
+				AF706D2E02E9DE46D914AE3A /* PortPeek.entitlements */,
+				4BAEBE243B3D5EC38D594BD9 /* PortPeekApp.swift */,
+			);
+			path = PortPeek;
+			sourceTree = "<group>";
+		};
+		E27F38A02EA925CF4D52BFE1 /* PortPeekTests */ = {
+			isa = PBXGroup;
+			children = (
+				9DAFDAE90F73CF2DFC1454CE /* PortPeekTests.swift */,
+			);
+			path = PortPeekTests;
+			sourceTree = "<group>";
+		};
+		F0E0FF4ABF0907C8151B16BE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				92E684808D1A9936EFDB519F /* PortPeek.app */,
+				93B18C8CB473E89A2E5FD552 /* PortPeekTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2BD974970C8AF9D4460BC33C /* PortPeekTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 21D5039255767D7F5ABF235A /* Build configuration list for PBXNativeTarget "PortPeekTests" */;
+			buildPhases = (
+				088F6A500ABD546DC69E8009 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				603BC0B3F145D6E95124CE55 /* PBXTargetDependency */,
+			);
+			name = PortPeekTests;
+			packageProductDependencies = (
+			);
+			productName = PortPeekTests;
+			productReference = 93B18C8CB473E89A2E5FD552 /* PortPeekTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E504AE015435269DD0FA121B /* PortPeek */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7B38F48E16E96025352620AF /* Build configuration list for PBXNativeTarget "PortPeek" */;
+			buildPhases = (
+				34BD3D78EA1AB00F263FA658 /* Sources */,
+				8A3297DC9FBA0F3BE5AED56C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PortPeek;
+			packageProductDependencies = (
+			);
+			productName = PortPeek;
+			productReference = 92E684808D1A9936EFDB519F /* PortPeek.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4E940A40A7D4B02AB37C4496 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 35B00A9823077D4058C4FC30 /* Build configuration list for PBXProject "PortPeek" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 21A71EB9272C51BFB5DECDF9;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = F0E0FF4ABF0907C8151B16BE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E504AE015435269DD0FA121B /* PortPeek */,
+				2BD974970C8AF9D4460BC33C /* PortPeekTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8A3297DC9FBA0F3BE5AED56C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC1C59F246BC91D1C0DC9186 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		088F6A500ABD546DC69E8009 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B36691D9E71AC423C69F3F0 /* PortPeekTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34BD3D78EA1AB00F263FA658 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F55C5F0F0CF05D9C4E96DDD1 /* AppDelegate.swift in Sources */,
+				436E9E759EC8FF5CFABD4947 /* PortPeekApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		603BC0B3F145D6E95124CE55 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E504AE015435269DD0FA121B /* PortPeek */;
+			targetProxy = BBBE5DE10FC72ADE9516D05E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0A7CB001449C19A68E75B604 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.portpeek.tests;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PortPeek.app/Contents/MacOS/PortPeek";
+			};
+			name = Release;
+		};
+		1D77FC1A61DCF7B2CD79A444 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		636B76FCAE21614320621AC0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PortPeek/PortPeek.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = PortPeek/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.portpeek.app;
+				PRODUCT_NAME = PortPeek;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		8E103137953BCB74942D63B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PortPeek/PortPeek.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = PortPeek/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.portpeek.app;
+				PRODUCT_NAME = PortPeek;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		D1EE883D9C4C5561B623C64C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.portpeek.tests;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PortPeek.app/Contents/MacOS/PortPeek";
+			};
+			name = Debug;
+		};
+		E24F61AAAEAE82EA2A610074 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		21D5039255767D7F5ABF235A /* Build configuration list for PBXNativeTarget "PortPeekTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D1EE883D9C4C5561B623C64C /* Debug */,
+				0A7CB001449C19A68E75B604 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		35B00A9823077D4058C4FC30 /* Build configuration list for PBXProject "PortPeek" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E24F61AAAEAE82EA2A610074 /* Debug */,
+				1D77FC1A61DCF7B2CD79A444 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7B38F48E16E96025352620AF /* Build configuration list for PBXNativeTarget "PortPeek" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E103137953BCB74942D63B0 /* Debug */,
+				636B76FCAE21614320621AC0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4E940A40A7D4B02AB37C4496 /* Project object */;
+}
