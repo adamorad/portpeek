@@ -30,7 +30,7 @@ struct PortRowView: View {
 
             Spacer()
 
-            Text("\(entry.port)")
+            Text(entry.port, format: .number.grouping(.never))
                 .font(.system(size: 12, weight: .medium, design: .monospaced))
                 .foregroundStyle(.secondary)
 

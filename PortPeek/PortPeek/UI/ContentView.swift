@@ -12,6 +12,7 @@ struct ContentView: View {
             if showSettings {
                 SettingsView(onDismiss: { showSettings = false })
                     .environmentObject(registry)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                     .transition(.asymmetric(
                         insertion: .move(edge: .trailing),
                         removal: .move(edge: .trailing)

@@ -176,7 +176,7 @@ struct PortTag: View {
 
     var body: some View {
         HStack(spacing: 3) {
-            Text("\(port)").font(.system(size: 11, weight: .medium))
+            Text(port, format: .number.grouping(.never)).font(.system(size: 11, weight: .medium))
             if hovered {
                 Button(action: onRemove) {
                     Image(systemName: "xmark").font(.system(size: 8, weight: .bold))
