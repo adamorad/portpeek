@@ -4,24 +4,33 @@ import os
 
 final class PortScanner {
     let timeout: TimeInterval
+    let batchSize: Int
 
-    init(timeout: TimeInterval = 0.5) {
+    init(timeout: TimeInterval = 0.05, batchSize: Int = 500) {
         self.timeout = timeout
+        self.batchSize = batchSize
     }
 
     func probePorts(_ ports: [Int]) async -> Set<Int> {
-        await withTaskGroup(of: (Int, Bool).self) { group in
-            for port in ports {
-                group.addTask { [self] in
-                    (port, await self.probePort(port))
-                }
-            }
-            var open = Set<Int>()
-            for await (port, isOpen) in group {
-                if isOpen { open.insert(port) }
-            }
-            return open
+        var open = Set<Int>()
+        let chunks = stride(from: 0, to: ports.count, by: batchSize).map {
+            Array(ports[$0 ..< min($0 + batchSize, ports.count)])
         }
+        for chunk in chunks {
+            guard !Task.isCancelled else { break }
+            let batch = await withTaskGroup(of: (Int, Bool).self) { group in
+                for port in chunk {
+                    group.addTask { [self] in (port, await self.probePort(port)) }
+                }
+                var result = Set<Int>()
+                for await (port, isOpen) in group {
+                    if isOpen { result.insert(port) }
+                }
+                return result
+            }
+            open.formUnion(batch)
+        }
+        return open
     }
 
     func probePort(_ port: Int) async -> Bool {

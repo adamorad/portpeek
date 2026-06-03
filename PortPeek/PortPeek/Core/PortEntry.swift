@@ -20,18 +20,6 @@ struct PortEntry: Identifiable {
 }
 
 extension PortEntry {
-    static let defaultMonitoredPorts: [Int] = [
-        80, 443,
-        3000, 3001, 3002, 3003,
-        4000, 4200, 4321,
-        5000, 5001, 5173, 5174,
-        5432,       // Postgres
-        6006,       // Storybook
-        6379,       // Redis
-        7000, 7265, 7823,
-        8000, 8001, 8080, 8081, 8443, 8765, 8888,
-        9000, 9090,
-        11434,      // Ollama
-        27017,      // MongoDB
-    ]
+    // All valid ports except PortPeek's own MCP server port.
+    static let defaultMonitoredPorts: [Int] = (1...65535).filter { $0 != 27182 }
 }
