@@ -31,20 +31,22 @@ final class PortScanner {
         }
         return await withCheckedContinuation { continuation in
             let conn = NWConnection(host: "127.0.0.1", port: nwPort, using: .tcp)
-            // Both stateUpdateHandler and asyncAfter are dispatched on this serial queue,
-            // so reads/writes to didResume are serialized without additional locking.
             let queue = DispatchQueue(label: "portpeek.probe.\(port)")
-            var didResume = false
+            // OSAllocatedUnfairLock provides thread-safe one-shot resume without
+            // relying on the serial queue guarantee that the compiler cannot verify.
+            let didResume = OSAllocatedUnfairLock(initialState: false)
 
             conn.stateUpdateHandler = { state in
-                guard !didResume else { return }
+                let first = didResume.withLock { flag -> Bool in
+                    guard !flag else { return false }
+                    flag = true; return true
+                }
+                guard first else { return }
                 switch state {
                 case .ready:
-                    didResume = true
                     conn.cancel()
                     continuation.resume(returning: true)
                 case .failed, .cancelled:
-                    didResume = true
                     continuation.resume(returning: false)
                 default:
                     break
@@ -54,8 +56,11 @@ final class PortScanner {
             conn.start(queue: queue)
 
             queue.asyncAfter(deadline: .now() + self.timeout) {
-                guard !didResume else { return }
-                didResume = true
+                let first = didResume.withLock { flag -> Bool in
+                    guard !flag else { return false }
+                    flag = true; return true
+                }
+                guard first else { return }
                 conn.cancel()
                 continuation.resume(returning: false)
             }
