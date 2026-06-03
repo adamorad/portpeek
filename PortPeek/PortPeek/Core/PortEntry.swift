@@ -20,6 +20,6 @@ struct PortEntry: Identifiable {
 }
 
 extension PortEntry {
-    // All valid ports except PortPeek's own MCP server port.
-    static let defaultMonitoredPorts: [Int] = (1...65535).filter { $0 != 27182 }
+    // All valid ports except PortPeek's own MCP server port. Computed once at first access.
+    static let portsToScan: [Int] = Array(1...65535).filter { $0 != 27182 }
 }

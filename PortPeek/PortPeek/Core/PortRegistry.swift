@@ -3,34 +3,24 @@ import Combine
 
 @MainActor
 final class PortRegistry: ObservableObject {
+    // Only contains ports that are listening or reserved — never the full 65k range.
     @Published private(set) var entries: [PortEntry] = []
-    @Published var monitoredPorts: [Int] {
-        didSet { saveMonitoredPorts(); rebuildEntries() }
-    }
     @Published var isMCPServerRunning: Bool = false
+    @Published private(set) var lastScanned: Date?
 
     let labelStore: LabelStore
     let reservationStore: ReservationStore
 
-    @Published private(set) var lastScanned: Date?
-
-    private let scanner = PortScanner(timeout: 0.5)
+    private let scanner = PortScanner()
     private var scanTask: Task<Void, Never>?
-    private var scanInterval: TimeInterval = 3.0
-    private let portsKey = "portpeek.monitoredPorts"
-    private let defaults: UserDefaults
+    private var scanInterval: TimeInterval = 15.0
 
     init(
-        monitoredPorts: [Int] = PortEntry.defaultMonitoredPorts,
         labelStore: LabelStore = LabelStore(),
-        reservationStore: ReservationStore = ReservationStore(),
-        defaults: UserDefaults = .standard
+        reservationStore: ReservationStore = ReservationStore()
     ) {
-        self.defaults = defaults
         self.labelStore = labelStore
         self.reservationStore = reservationStore
-        let saved = defaults.array(forKey: portsKey) as? [Int]
-        self.monitoredPorts = saved ?? monitoredPorts
         rebuildEntries()
     }
 
@@ -51,24 +41,15 @@ final class PortRegistry: ObservableObject {
         rebuildEntries()
     }
 
-    func addPort(_ port: Int) {
-        guard !monitoredPorts.contains(port) else { return }
-        monitoredPorts.append(port)
-    }
-
-    func removePort(_ port: Int) {
-        monitoredPorts.removeAll { $0 == port }
-    }
-
     // MARK: - Scanning
 
-    func startScanning(interval: TimeInterval = 3.0) {
+    func startScanning(interval: TimeInterval = 15.0) {
         scanInterval = interval
         scanTask?.cancel()
         scanTask = Task { [weak self] in
             while !Task.isCancelled {
                 await self?.performScan()
-                try? await Task.sleep(nanoseconds: UInt64((self?.scanInterval ?? 3) * 1_000_000_000))
+                try? await Task.sleep(nanoseconds: UInt64((self?.scanInterval ?? 15) * 1_000_000_000))
             }
         }
     }
@@ -81,40 +62,26 @@ final class PortRegistry: ObservableObject {
     // MARK: - Private
 
     private func performScan() async {
-        let ports = monitoredPorts
-        let open = await scanner.probePorts(ports)
+        let open = await scanner.probePorts(PortEntry.portsToScan)
         lastScanned = Date()
         reservationStore.pruneExpired()
         applyOpenPorts(open)
     }
 
     private func applyOpenPorts(_ open: Set<Int>) {
-        entries = monitoredPorts.map { port in
-            let status: PortStatus
-            if open.contains(port) {
-                status = .listening
-            } else if let r = reservationStore.reservation(for: port) {
-                status = .reserved(project: r.project, expires: r.expires)
-            } else {
-                status = .available
-            }
-            return PortEntry(port: port, status: status, userLabel: labelStore.label(for: port))
+        var result: [PortEntry] = []
+        for port in open {
+            result.append(PortEntry(port: port, status: .listening, userLabel: labelStore.label(for: port)))
         }
+        for (port, r) in reservationStore.reservations where !open.contains(port) {
+            result.append(PortEntry(port: port, status: .reserved(project: r.project, expires: r.expires), userLabel: labelStore.label(for: port)))
+        }
+        entries = result.sorted { $0.port < $1.port }
     }
 
     private func rebuildEntries() {
-        entries = monitoredPorts.map { port in
-            let status: PortStatus
-            if let r = reservationStore.reservation(for: port) {
-                status = .reserved(project: r.project, expires: r.expires)
-            } else {
-                status = .available
-            }
-            return PortEntry(port: port, status: status, userLabel: labelStore.label(for: port))
-        }
-    }
-
-    private func saveMonitoredPorts() {
-        defaults.set(monitoredPorts, forKey: portsKey)
+        entries = reservationStore.reservations.map { (port, r) in
+            PortEntry(port: port, status: .reserved(project: r.project, expires: r.expires), userLabel: labelStore.label(for: port))
+        }.sorted { $0.port < $1.port }
     }
 }

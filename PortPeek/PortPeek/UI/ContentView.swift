@@ -17,8 +17,8 @@ struct ContentView: View {
 
             Divider().opacity(0.4)
 
-            if registry.entries.filter({ $0.status != .available }).isEmpty {
-                EmptyStateView(monitoredCount: registry.monitoredPorts.count)
+            if registry.entries.isEmpty {
+                EmptyStateView()
             } else {
                 PortListView()
             }
@@ -80,14 +80,13 @@ struct MCPStatusPill: View {
 }
 
 struct EmptyStateView: View {
-    let monitoredCount: Int
     var body: some View {
         VStack(spacing: 8) {
             Text("🔌").font(.system(size: 28)).opacity(0.4)
             Text("No active ports")
                 .font(.system(size: 13, weight: .semibold))
                 .foregroundStyle(.secondary)
-            Text("Monitoring \(monitoredCount) dev ports")
+            Text("Scanning all ports…")
                 .font(.system(size: 11))
                 .foregroundStyle(.tertiary)
         }

@@ -21,7 +21,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
         try? mcpServer?.start()
 
-        registry.startScanning(interval: 15.0)
+        registry.startScanning()
     }
 
     func applicationWillTerminate(_ notification: Notification) {
