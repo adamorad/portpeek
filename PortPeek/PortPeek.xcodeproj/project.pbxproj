@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		154F3D1F9602665C2C48F9D2 /* LabelStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77069B502BBA791AB7197E46 /* LabelStoreTests.swift */; };
 		1C9D3C42A48A0415402ADF93 /* PortEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78AD6E75FF5F9CD40FE35F6 /* PortEntry.swift */; };
 		436E9E759EC8FF5CFABD4947 /* PortPeekApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAEBE243B3D5EC38D594BD9 /* PortPeekApp.swift */; };
 		5B36691D9E71AC423C69F3F0 /* PortPeekTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAFDAE90F73CF2DFC1454CE /* PortPeekTests.swift */; };
+		BCC14264A1B32983CA0CA6A2 /* LabelStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91F154603E8AB0A93E6BD23 /* LabelStore.swift */; };
 		F55C5F0F0CF05D9C4E96DDD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D557091FC0A39780CDD6651E /* AppDelegate.swift */; };
 		F9D314D6411E767CB6BCF59A /* PortEntryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEC979EADDD465A47B8D7F2 /* PortEntryTests.swift */; };
 		FC1C59F246BC91D1C0DC9186 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91A519C3A96F6BF6CC20F558 /* Assets.xcassets */; };
@@ -28,10 +30,12 @@
 /* Begin PBXFileReference section */
 		4BAEBE243B3D5EC38D594BD9 /* PortPeekApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortPeekApp.swift; sourceTree = "<group>"; };
 		5EEC979EADDD465A47B8D7F2 /* PortEntryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortEntryTests.swift; sourceTree = "<group>"; };
+		77069B502BBA791AB7197E46 /* LabelStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStoreTests.swift; sourceTree = "<group>"; };
 		91A519C3A96F6BF6CC20F558 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92E684808D1A9936EFDB519F /* PortPeek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PortPeek.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93B18C8CB473E89A2E5FD552 /* PortPeekTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PortPeekTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DAFDAE90F73CF2DFC1454CE /* PortPeekTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortPeekTests.swift; sourceTree = "<group>"; };
+		A91F154603E8AB0A93E6BD23 /* LabelStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStore.swift; sourceTree = "<group>"; };
 		AF706D2E02E9DE46D914AE3A /* PortPeek.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PortPeek.entitlements; sourceTree = "<group>"; };
 		C3ACFF526B52D20B98B32AC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D557091FC0A39780CDD6651E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +55,7 @@
 		24F9ACA2E5D69C1862508C00 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				77069B502BBA791AB7197E46 /* LabelStoreTests.swift */,
 				5EEC979EADDD465A47B8D7F2 /* PortEntryTests.swift */,
 			);
 			path = Core;
@@ -59,6 +64,7 @@
 		AD71715FB4F962B5580DE5F6 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				A91F154603E8AB0A93E6BD23 /* LabelStore.swift */,
 				F78AD6E75FF5F9CD40FE35F6 /* PortEntry.swift */,
 			);
 			path = Core;
@@ -181,6 +187,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				154F3D1F9602665C2C48F9D2 /* LabelStoreTests.swift in Sources */,
 				F9D314D6411E767CB6BCF59A /* PortEntryTests.swift in Sources */,
 				5B36691D9E71AC423C69F3F0 /* PortPeekTests.swift in Sources */,
 			);
@@ -191,6 +198,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F55C5F0F0CF05D9C4E96DDD1 /* AppDelegate.swift in Sources */,
+				BCC14264A1B32983CA0CA6A2 /* LabelStore.swift in Sources */,
 				1C9D3C42A48A0415402ADF93 /* PortEntry.swift in Sources */,
 				436E9E759EC8FF5CFABD4947 /* PortPeekApp.swift in Sources */,
 			);
