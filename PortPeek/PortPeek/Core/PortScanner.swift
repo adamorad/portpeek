@@ -5,8 +5,11 @@ import os
 final class PortScanner {
     let timeout: TimeInterval
     let batchSize: Int
+    // One shared concurrent queue for all NWConnections — avoids creating a new
+    // DispatchQueue per probe (previously 500 queues per batch × 131 batches).
+    private let queue = DispatchQueue(label: "com.portpeek.scanner", attributes: .concurrent)
 
-    init(timeout: TimeInterval = 0.05, batchSize: Int = 500) {
+    init(timeout: TimeInterval = 0.05, batchSize: Int = 100) {
         self.timeout = timeout
         self.batchSize = batchSize
     }
@@ -40,13 +43,8 @@ final class PortScanner {
         }
         return await withCheckedContinuation { continuation in
             let conn = NWConnection(host: "127.0.0.1", port: nwPort, using: .tcp)
-            let queue = DispatchQueue(label: "portpeek.probe.\(port)")
-            // OSAllocatedUnfairLock provides thread-safe one-shot resume without
-            // relying on the serial queue guarantee that the compiler cannot verify.
             let didResume = OSAllocatedUnfairLock(initialState: false)
 
-            // tryConsume returns true the first time it is called, false on all
-            // subsequent calls — ensures the continuation is resumed exactly once.
             let tryConsume: @Sendable () -> Bool = {
                 didResume.withLock { flag -> Bool in
                     guard !flag else { return false }
@@ -68,9 +66,9 @@ final class PortScanner {
                 }
             }
 
-            conn.start(queue: queue)
+            conn.start(queue: self.queue)
 
-            queue.asyncAfter(deadline: .now() + self.timeout) {
+            self.queue.asyncAfter(deadline: .now() + self.timeout) {
                 guard tryConsume() else { return }
                 conn.cancel()
                 continuation.resume(returning: false)
