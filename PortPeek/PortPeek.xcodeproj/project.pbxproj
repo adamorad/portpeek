@@ -7,11 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A51D0CB4C3737FC6D3EC5A7 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3DAAED5FD4479957C5C27F /* SettingsView.swift */; };
+		0BA854662BB650B8BA45B454 /* PortScannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123C19FFB9705B1B97F1BCF8 /* PortScannerTests.swift */; };
+		0BEAEF17D76F60FB085D8C3C /* MCPToolsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC0D74310CBC7389AF09825 /* MCPToolsTests.swift */; };
+		0DD592A5B36F356CA41DCA9B /* PortScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94372BB4C13038F1DBC41D67 /* PortScanner.swift */; };
+		13063D6C2DF90494100F18A8 /* MCPTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD8AF51ED731C2C0DFB1B6C /* MCPTools.swift */; };
 		154F3D1F9602665C2C48F9D2 /* LabelStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77069B502BBA791AB7197E46 /* LabelStoreTests.swift */; };
+		19BC098FE889B3080AC2EA54 /* MenuBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F458908075956C2EC15EE13 /* MenuBarController.swift */; };
 		1C9D3C42A48A0415402ADF93 /* PortEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78AD6E75FF5F9CD40FE35F6 /* PortEntry.swift */; };
+		304297249900C8E32623A5D4 /* PortListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6198447756AD4FC18D1479C /* PortListView.swift */; };
 		436E9E759EC8FF5CFABD4947 /* PortPeekApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAEBE243B3D5EC38D594BD9 /* PortPeekApp.swift */; };
+		53C0C3C25F21D9A14BD78B39 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543C8022A5203753AA87903A /* ContentView.swift */; };
 		5B36691D9E71AC423C69F3F0 /* PortPeekTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAFDAE90F73CF2DFC1454CE /* PortPeekTests.swift */; };
+		81D9F4BA12BEC216775E44C8 /* MCPHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18F4E05F6CC927D2B8E9B40 /* MCPHandlerTests.swift */; };
+		9E99C795519ED71DB1E50FB6 /* PortRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D539CE3E89CBDED9EA76E83D /* PortRegistry.swift */; };
+		B8F66BEA782F99705C416DC4 /* MCPHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD17706C273AA8D26AB1160C /* MCPHandler.swift */; };
 		BCC14264A1B32983CA0CA6A2 /* LabelStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91F154603E8AB0A93E6BD23 /* LabelStore.swift */; };
+		C67867AF10965FFACD18A3CE /* PortRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553B2B56BEAB173C2EABB8B1 /* PortRowView.swift */; };
+		CC93404792E1F1EB9FF2E7AB /* ReservationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B769A2295E20DC2335411A40 /* ReservationStore.swift */; };
+		D473A92235FBACFC76ED2B09 /* MCPServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB97385118ABB43980DE8B2 /* MCPServer.swift */; };
+		DF67AD9DD7FD20E107CE2598 /* PortRegistryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD86BED8641115A4DF43CF1 /* PortRegistryTests.swift */; };
+		E2E20D6F98EE7227BDBB488E /* ReservationStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D309C5C4D27945A68793705 /* ReservationStoreTests.swift */; };
 		F55C5F0F0CF05D9C4E96DDD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D557091FC0A39780CDD6651E /* AppDelegate.swift */; };
 		F9D314D6411E767CB6BCF59A /* PortEntryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEC979EADDD465A47B8D7F2 /* PortEntryTests.swift */; };
 		FC1C59F246BC91D1C0DC9186 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91A519C3A96F6BF6CC20F558 /* Assets.xcassets */; };
@@ -28,17 +44,33 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		123C19FFB9705B1B97F1BCF8 /* PortScannerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortScannerTests.swift; sourceTree = "<group>"; };
+		2F458908075956C2EC15EE13 /* MenuBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarController.swift; sourceTree = "<group>"; };
+		3F3DAAED5FD4479957C5C27F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		4BAEBE243B3D5EC38D594BD9 /* PortPeekApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortPeekApp.swift; sourceTree = "<group>"; };
+		543C8022A5203753AA87903A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		553B2B56BEAB173C2EABB8B1 /* PortRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortRowView.swift; sourceTree = "<group>"; };
 		5EEC979EADDD465A47B8D7F2 /* PortEntryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortEntryTests.swift; sourceTree = "<group>"; };
+		5FD8AF51ED731C2C0DFB1B6C /* MCPTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCPTools.swift; sourceTree = "<group>"; };
+		6DC0D74310CBC7389AF09825 /* MCPToolsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCPToolsTests.swift; sourceTree = "<group>"; };
 		77069B502BBA791AB7197E46 /* LabelStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStoreTests.swift; sourceTree = "<group>"; };
+		7D309C5C4D27945A68793705 /* ReservationStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationStoreTests.swift; sourceTree = "<group>"; };
 		91A519C3A96F6BF6CC20F558 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92E684808D1A9936EFDB519F /* PortPeek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PortPeek.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93B18C8CB473E89A2E5FD552 /* PortPeekTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PortPeekTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		94372BB4C13038F1DBC41D67 /* PortScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortScanner.swift; sourceTree = "<group>"; };
 		9DAFDAE90F73CF2DFC1454CE /* PortPeekTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortPeekTests.swift; sourceTree = "<group>"; };
 		A91F154603E8AB0A93E6BD23 /* LabelStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStore.swift; sourceTree = "<group>"; };
+		AD17706C273AA8D26AB1160C /* MCPHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCPHandler.swift; sourceTree = "<group>"; };
 		AF706D2E02E9DE46D914AE3A /* PortPeek.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PortPeek.entitlements; sourceTree = "<group>"; };
+		B769A2295E20DC2335411A40 /* ReservationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationStore.swift; sourceTree = "<group>"; };
 		C3ACFF526B52D20B98B32AC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		CDD86BED8641115A4DF43CF1 /* PortRegistryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortRegistryTests.swift; sourceTree = "<group>"; };
+		D539CE3E89CBDED9EA76E83D /* PortRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortRegistry.swift; sourceTree = "<group>"; };
 		D557091FC0A39780CDD6651E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E18F4E05F6CC927D2B8E9B40 /* MCPHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCPHandlerTests.swift; sourceTree = "<group>"; };
+		E6198447756AD4FC18D1479C /* PortListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortListView.swift; sourceTree = "<group>"; };
+		EDB97385118ABB43980DE8B2 /* MCPServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCPServer.swift; sourceTree = "<group>"; };
 		F78AD6E75FF5F9CD40FE35F6 /* PortEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortEntry.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -57,8 +89,30 @@
 			children = (
 				77069B502BBA791AB7197E46 /* LabelStoreTests.swift */,
 				5EEC979EADDD465A47B8D7F2 /* PortEntryTests.swift */,
+				CDD86BED8641115A4DF43CF1 /* PortRegistryTests.swift */,
+				123C19FFB9705B1B97F1BCF8 /* PortScannerTests.swift */,
+				7D309C5C4D27945A68793705 /* ReservationStoreTests.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		31DCA90322227B0F0787969E /* MCP */ = {
+			isa = PBXGroup;
+			children = (
+				AD17706C273AA8D26AB1160C /* MCPHandler.swift */,
+				EDB97385118ABB43980DE8B2 /* MCPServer.swift */,
+				5FD8AF51ED731C2C0DFB1B6C /* MCPTools.swift */,
+			);
+			path = MCP;
+			sourceTree = "<group>";
+		};
+		92E43FE8FD106FB651D2C9DF /* MCP */ = {
+			isa = PBXGroup;
+			children = (
+				E18F4E05F6CC927D2B8E9B40 /* MCPHandlerTests.swift */,
+				6DC0D74310CBC7389AF09825 /* MCPToolsTests.swift */,
+			);
+			path = MCP;
 			sourceTree = "<group>";
 		};
 		AD71715FB4F962B5580DE5F6 /* Core */ = {
@@ -66,6 +120,9 @@
 			children = (
 				A91F154603E8AB0A93E6BD23 /* LabelStore.swift */,
 				F78AD6E75FF5F9CD40FE35F6 /* PortEntry.swift */,
+				D539CE3E89CBDED9EA76E83D /* PortRegistry.swift */,
+				94372BB4C13038F1DBC41D67 /* PortScanner.swift */,
+				B769A2295E20DC2335411A40 /* ReservationStore.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -79,8 +136,22 @@
 				AF706D2E02E9DE46D914AE3A /* PortPeek.entitlements */,
 				4BAEBE243B3D5EC38D594BD9 /* PortPeekApp.swift */,
 				AD71715FB4F962B5580DE5F6 /* Core */,
+				31DCA90322227B0F0787969E /* MCP */,
+				D60C9DD4AB975E92A1967184 /* UI */,
 			);
 			path = PortPeek;
+			sourceTree = "<group>";
+		};
+		D60C9DD4AB975E92A1967184 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				543C8022A5203753AA87903A /* ContentView.swift */,
+				2F458908075956C2EC15EE13 /* MenuBarController.swift */,
+				E6198447756AD4FC18D1479C /* PortListView.swift */,
+				553B2B56BEAB173C2EABB8B1 /* PortRowView.swift */,
+				3F3DAAED5FD4479957C5C27F /* SettingsView.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		E27F38A02EA925CF4D52BFE1 /* PortPeekTests */ = {
@@ -88,6 +159,7 @@
 			children = (
 				9DAFDAE90F73CF2DFC1454CE /* PortPeekTests.swift */,
 				24F9ACA2E5D69C1862508C00 /* Core */,
+				92E43FE8FD106FB651D2C9DF /* MCP */,
 			);
 			path = PortPeekTests;
 			sourceTree = "<group>";
@@ -188,8 +260,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				154F3D1F9602665C2C48F9D2 /* LabelStoreTests.swift in Sources */,
+				81D9F4BA12BEC216775E44C8 /* MCPHandlerTests.swift in Sources */,
+				0BEAEF17D76F60FB085D8C3C /* MCPToolsTests.swift in Sources */,
 				F9D314D6411E767CB6BCF59A /* PortEntryTests.swift in Sources */,
 				5B36691D9E71AC423C69F3F0 /* PortPeekTests.swift in Sources */,
+				DF67AD9DD7FD20E107CE2598 /* PortRegistryTests.swift in Sources */,
+				0BA854662BB650B8BA45B454 /* PortScannerTests.swift in Sources */,
+				E2E20D6F98EE7227BDBB488E /* ReservationStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,9 +275,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				F55C5F0F0CF05D9C4E96DDD1 /* AppDelegate.swift in Sources */,
+				53C0C3C25F21D9A14BD78B39 /* ContentView.swift in Sources */,
 				BCC14264A1B32983CA0CA6A2 /* LabelStore.swift in Sources */,
+				B8F66BEA782F99705C416DC4 /* MCPHandler.swift in Sources */,
+				D473A92235FBACFC76ED2B09 /* MCPServer.swift in Sources */,
+				13063D6C2DF90494100F18A8 /* MCPTools.swift in Sources */,
+				19BC098FE889B3080AC2EA54 /* MenuBarController.swift in Sources */,
 				1C9D3C42A48A0415402ADF93 /* PortEntry.swift in Sources */,
+				304297249900C8E32623A5D4 /* PortListView.swift in Sources */,
 				436E9E759EC8FF5CFABD4947 /* PortPeekApp.swift in Sources */,
+				9E99C795519ED71DB1E50FB6 /* PortRegistry.swift in Sources */,
+				C67867AF10965FFACD18A3CE /* PortRowView.swift in Sources */,
+				0DD592A5B36F356CA41DCA9B /* PortScanner.swift in Sources */,
+				CC93404792E1F1EB9FF2E7AB /* ReservationStore.swift in Sources */,
+				0A51D0CB4C3737FC6D3EC5A7 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
