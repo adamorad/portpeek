@@ -272,6 +272,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.portpeek.app;
 				PRODUCT_NAME = PortPeek;
 				SDKROOT = macosx;
+				SWIFT_STRICT_CONCURRENCY = targeted;
 				SWIFT_VERSION = 5.9;
 			};
 			name = Release;
@@ -291,6 +292,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.portpeek.app;
 				PRODUCT_NAME = PortPeek;
 				SDKROOT = macosx;
+				SWIFT_STRICT_CONCURRENCY = targeted;
 				SWIFT_VERSION = 5.9;
 			};
 			name = Debug;

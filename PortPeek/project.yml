@@ -15,8 +15,8 @@ targets:
       PRODUCT_NAME: PortPeek
       PRODUCT_BUNDLE_IDENTIFIER: com.portpeek.app
       CODE_SIGN_ENTITLEMENTS: PortPeek/PortPeek.entitlements
-      INFOPLIST_FILE: PortPeek/Info.plist
       SWIFT_VERSION: "5.9"
+      SWIFT_STRICT_CONCURRENCY: targeted
       MACOSX_DEPLOYMENT_TARGET: "14.0"
     info:
       path: PortPeek/Info.plist
