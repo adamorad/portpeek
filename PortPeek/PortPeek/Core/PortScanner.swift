@@ -47,7 +47,7 @@ final class PortScanner {
 
             // tryConsume returns true the first time it is called, false on all
             // subsequent calls — ensures the continuation is resumed exactly once.
-            let tryConsume = {
+            let tryConsume: @Sendable () -> Bool = {
                 didResume.withLock { flag -> Bool in
                     guard !flag else { return false }
                     flag = true; return true

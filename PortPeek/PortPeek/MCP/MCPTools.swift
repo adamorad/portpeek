@@ -89,12 +89,10 @@ final class MCPTools {
         let project = args["project"] as? String ?? "agent"
         let ttl = (args["ttl_minutes"] as? Int).map { max(1, min($0, 1440)) } ?? 5
 
-        let candidates = ([preferred] + registry.monitoredPorts + (1...20).map { preferred + $0 })
-            .removingDuplicates()
+        let candidates = ([preferred] + (1...20).map { preferred + $0 }).filter { $0 != 27182 }
 
         for port in candidates {
-            let entry = registry.entries.first { $0.port == port }
-            let isFree = entry.map { $0.status == .available } ?? true
+            let isFree = registry.entries.first { $0.port == port } == nil
             guard isFree else { continue }
 
             if shouldReserve {
