@@ -86,7 +86,7 @@ final class MCPTools {
         }
         let shouldReserve = args["reserve"] as? Bool ?? false
         let project = args["project"] as? String ?? "agent"
-        let ttl = args["ttl_minutes"] as? Int ?? 5
+        let ttl = (args["ttl_minutes"] as? Int).map { max(1, min($0, 1440)) } ?? 5
 
         let candidates = ([preferred] + registry.monitoredPorts + (1...20).map { preferred + $0 })
             .removingDuplicates()
@@ -121,7 +121,7 @@ final class MCPTools {
         else {
             return jsonString(["error": "port and project are required"])
         }
-        let ttl = args["ttl_minutes"] as? Int ?? 5
+        let ttl = (args["ttl_minutes"] as? Int).map { max(1, min($0, 1440)) } ?? 5
         do {
             try registry.reserve(port: port, project: project, ttlMinutes: ttl)
             let expires = Date().addingTimeInterval(TimeInterval(ttl * 60))

@@ -6,20 +6,22 @@ final class MCPHandlerTests: XCTestCase {
     var registry: PortRegistry!
     var handler: MCPHandler!
     var suiteName: String!
+    var suiteDefaults: UserDefaults!
 
     override func setUp() {
         suiteName = "test.mcp.\(UUID().uuidString)"
-        let defaults = UserDefaults(suiteName: suiteName)!
+        suiteDefaults = UserDefaults(suiteName: suiteName)!
         registry = PortRegistry(
             monitoredPorts: [3000, 5432],
-            labelStore: LabelStore(defaults: defaults),
-            reservationStore: ReservationStore(defaults: defaults),
-            defaults: defaults
+            labelStore: LabelStore(defaults: suiteDefaults),
+            reservationStore: ReservationStore(defaults: suiteDefaults),
+            defaults: suiteDefaults
         )
         handler = MCPHandler(registry: registry)
     }
 
     override func tearDown() {
+        suiteDefaults.synchronize()
         UserDefaults.standard.removePersistentDomain(forName: suiteName)
     }
 
@@ -45,11 +47,21 @@ final class MCPHandlerTests: XCTestCase {
         XCTAssertTrue(names.contains("release_port"))
     }
 
-    func test_unknownMethod_returnsError() throws {
+    func test_unknownMethod_returnsJsonRpcError() throws {
         let req = #"{"jsonrpc":"2.0","method":"unknown/method","params":{},"id":3}"#
         let resp = try handler.handle(Data(req.utf8))
         let json = try JSONSerialization.jsonObject(with: resp) as! [String: Any]
         XCTAssertNotNil(json["error"])
+        let error = json["error"] as! [String: Any]
+        XCTAssertEqual(error["code"] as? Int, -32601)
+    }
+
+    func test_malformedRequest_returnsParseError() throws {
+        let resp = try handler.handle(Data("not json".utf8))
+        let json = try JSONSerialization.jsonObject(with: resp) as! [String: Any]
+        XCTAssertNotNil(json["error"])
+        let error = json["error"] as! [String: Any]
+        XCTAssertEqual(error["code"] as? Int, -32700)
     }
 
     func test_listActivePorts_returnsEntries() throws {
@@ -59,8 +71,16 @@ final class MCPHandlerTests: XCTestCase {
         XCTAssertNotNil(json["result"])
     }
 
+    func test_toolsCall_unknownTool_returnsResult() throws {
+        let req = #"{"jsonrpc":"2.0","method":"tools/call","params":{"name":"nonexistent_tool","arguments":{}},"id":5}"#
+        let resp = try handler.handle(Data(req.utf8))
+        let json = try JSONSerialization.jsonObject(with: resp) as! [String: Any]
+        // MCPTools returns an error string for unknown tools — handler wraps it in result content
+        XCTAssertNotNil(json["result"])
+    }
+
     func test_notificationsInitialized_returnsEmptyData() throws {
-        let req = #"{"jsonrpc":"2.0","method":"notifications/initialized","params":{},"id":5}"#
+        let req = #"{"jsonrpc":"2.0","method":"notifications/initialized","params":{},"id":6}"#
         let resp = try handler.handle(Data(req.utf8))
         XCTAssertTrue(resp.isEmpty)
     }

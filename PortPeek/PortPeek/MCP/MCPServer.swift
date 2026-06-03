@@ -7,18 +7,35 @@ final class MCPServer {
     private let port: UInt16
     private let queue = DispatchQueue(label: "com.portpeek.mcp", qos: .userInitiated)
 
+    /// Called when the listener fails to start or loses its binding (e.g. port in use).
+    var onError: ((NWError) -> Void)?
+
     init(registry: PortRegistry, port: UInt16 = 27182) {
         self.registry = registry
         self.port = port
     }
 
     func start() throws {
-        let listener = try NWListener(using: .tcp, on: NWEndpoint.Port(rawValue: port)!)
+        // Restrict to loopback so the MCP endpoint is never reachable from the LAN.
+        let params = NWParameters.tcp
+        params.requiredLocalEndpoint = NWEndpoint.hostPort(
+            host: .init("127.0.0.1"),
+            port: NWEndpoint.Port(rawValue: port)!
+        )
+        let listener = try NWListener(using: params)
         self.listener = listener
 
-        listener.stateUpdateHandler = { state in
-            if case .failed(let error) = state {
+        listener.stateUpdateHandler = { [weak self] state in
+            switch state {
+            case .failed(let error):
                 print("[PortPeek] MCP server failed: \(error)")
+                self?.listener?.cancel()
+                self?.listener = nil
+                self?.onError?(error)
+            case .ready:
+                print("[PortPeek] MCP server listening on 127.0.0.1:\(self?.port ?? 0)")
+            default:
+                break
             }
         }
 
@@ -41,20 +58,74 @@ final class MCPServer {
                 connection.cancel()
                 return
             }
-            Task { @MainActor in
-                guard let body = self.extractHTTPBody(from: data) else {
-                    connection.cancel()
-                    return
-                }
+            // Validate Host header to defeat DNS-rebinding attacks. Reject any request
+            // whose Host is not explicitly localhost — even though we bind to 127.0.0.1,
+            // a browser tab could resolve an attacker-controlled domain to 127.0.0.1.
+            // Also reject any request carrying an Origin header (browser-originated requests
+            // only; legitimate MCP clients such as Claude Code never send Origin).
+            guard self.isRequestAllowed(data) else {
+                let forbidden = Data("HTTP/1.1 403 Forbidden\r\nContent-Length: 0\r\nConnection: close\r\n\r\n".utf8)
+                connection.send(content: forbidden, completion: .contentProcessed { _ in connection.cancel() })
+                return
+            }
+            guard let body = self.extractHTTPBody(from: data) else {
+                connection.cancel()
+                return
+            }
+            // Hop to main actor: MCPHandler is @MainActor (accesses PortRegistry).
+            // NWConnection.send/cancel are thread-safe and can be called from any queue.
+            Task { @MainActor [weak self] in
+                guard let self else { return }
                 let handler = MCPHandler(registry: self.registry)
-                guard let responseBody = try? handler.handle(body), !responseBody.isEmpty else {
+                let responseBody: Data
+                do {
+                    responseBody = try handler.handle(body)
+                } catch {
+                    let errBody = self.buildInternalErrorResponse()
+                    connection.send(
+                        content: self.buildHTTPResponse(body: errBody),
+                        completion: .contentProcessed { _ in connection.cancel() }
+                    )
+                    return
+                }
+                // notifications/initialized returns empty Data — no HTTP response needed
+                guard !responseBody.isEmpty else {
                     connection.cancel()
                     return
                 }
-                let http = self.buildHTTPResponse(body: responseBody)
-                connection.send(content: http, completion: .contentProcessed { _ in connection.cancel() })
+                connection.send(
+                    content: self.buildHTTPResponse(body: responseBody),
+                    completion: .contentProcessed { _ in connection.cancel() }
+                )
             }
         }
+    }
+
+    /// Returns false if the request has a non-loopback Host or carries an Origin header.
+    private func isRequestAllowed(_ data: Data) -> Bool {
+        guard let headerSection = extractHeaderSection(from: data) else { return false }
+        let lines = headerSection.components(separatedBy: "\r\n")
+        let allowedHosts: Set<String> = [
+            "localhost:\(port)", "127.0.0.1:\(port)", "::1:\(port)"
+        ]
+        var hostFound = false
+        for line in lines.dropFirst() { // skip request line
+            let lower = line.lowercased()
+            if lower.hasPrefix("host:") {
+                let value = line.dropFirst(5).trimmingCharacters(in: .whitespaces)
+                guard allowedHosts.contains(value) else { return false }
+                hostFound = true
+            }
+            // Reject browser-originated requests (Origin header present → CSRF risk)
+            if lower.hasPrefix("origin:") { return false }
+        }
+        return hostFound
+    }
+
+    private func extractHeaderSection(from data: Data) -> String? {
+        let separator = Data("\r\n\r\n".utf8)
+        guard let range = data.range(of: separator) else { return nil }
+        return String(data: data[..<range.lowerBound], encoding: .utf8)
     }
 
     private func extractHTTPBody(from data: Data) -> Data? {
@@ -67,5 +138,14 @@ final class MCPServer {
     private func buildHTTPResponse(body: Data) -> Data {
         let header = "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: \(body.count)\r\nConnection: close\r\n\r\n"
         return Data(header.utf8) + body
+    }
+
+    private func buildInternalErrorResponse() -> Data {
+        let resp: [String: Any] = [
+            "jsonrpc": "2.0",
+            "id": 0,
+            "error": ["code": -32603, "message": "Internal error"]
+        ]
+        return (try? JSONSerialization.data(withJSONObject: resp)) ?? Data()
     }
 }
