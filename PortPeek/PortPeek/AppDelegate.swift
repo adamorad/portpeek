@@ -21,7 +21,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
         try? mcpServer?.start()
 
-        registry.startScanning()
+        let savedInterval = UserDefaults.standard.double(forKey: "portpeek.scanInterval")
+        registry.startScanning(interval: savedInterval > 0 ? savedInterval : 3.0)
     }
 
     func applicationWillTerminate(_ notification: Notification) {

@@ -11,10 +11,12 @@ final class MCPHandler {
     func handle(_ data: Data) throws -> Data {
         guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
               let method = json["method"] as? String,
-              let id = json["id"]
+              let rawId = json["id"],
+              rawId is NSNumber || rawId is NSString || rawId is NSNull
         else {
-            return errorResponse(id: 0, code: -32700, message: "Parse error")
+            return errorResponse(id: NSNull(), code: -32700, message: "Parse error")
         }
+        let id = rawId
 
         switch method {
         case "initialize":

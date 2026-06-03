@@ -104,7 +104,9 @@ struct PortRowView: View {
     }
 
     private func openInBrowser() {
-        NSWorkspace.shared.open(URL(string: "http://localhost:\(entry.port)")!)
+        if let url = URL(string: "http://localhost:\(entry.port)") {
+            NSWorkspace.shared.open(url)
+        }
     }
 
     private func copyURL() {

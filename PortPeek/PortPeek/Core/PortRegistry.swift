@@ -93,8 +93,7 @@ final class PortRegistry: ObservableObject {
             let status: PortStatus
             if open.contains(port) {
                 status = .listening
-            } else if reservationStore.isReserved(port) {
-                let r = reservationStore.reservation(for: port)!
+            } else if let r = reservationStore.reservation(for: port) {
                 status = .reserved(project: r.project, expires: r.expires)
             } else {
                 status = .available
@@ -106,8 +105,7 @@ final class PortRegistry: ObservableObject {
     private func rebuildEntries() {
         entries = monitoredPorts.map { port in
             let status: PortStatus
-            if reservationStore.isReserved(port) {
-                let r = reservationStore.reservation(for: port)!
+            if let r = reservationStore.reservation(for: port) {
                 status = .reserved(project: r.project, expires: r.expires)
             } else {
                 status = .available

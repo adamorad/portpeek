@@ -51,8 +51,12 @@ final class MCPServer {
     }
 
     func stop() {
-        listener?.cancel()
-        listener = nil
+        // Dispatch through the same serial queue used by stateUpdateHandler to
+        // avoid a data race on `listener` between the main actor and background queue.
+        queue.async { [weak self] in
+            self?.listener?.cancel()
+            self?.listener = nil
+        }
     }
 
     private func handle(_ connection: NWConnection) {
