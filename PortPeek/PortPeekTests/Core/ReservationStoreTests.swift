@@ -1,12 +1,17 @@
-// PortPeek/PortPeekTests/Core/ReservationStoreTests.swift
 import XCTest
 @testable import PortPeek
 
 final class ReservationStoreTests: XCTestCase {
     var store: ReservationStore!
+    var suiteName: String!
 
     override func setUp() {
-        store = ReservationStore(defaults: UserDefaults(suiteName: "test.reservations.\(UUID().uuidString)")!)
+        suiteName = "test.reservations.\(UUID().uuidString)"
+        store = ReservationStore(defaults: UserDefaults(suiteName: suiteName)!)
+    }
+
+    override func tearDown() {
+        UserDefaults.standard.removePersistentDomain(forName: suiteName)
     }
 
     func test_reserve_marksPortAsReserved() throws {
@@ -30,8 +35,15 @@ final class ReservationStoreTests: XCTestCase {
 
     func test_expiredReservation_isNotReserved() throws {
         try store.reserve(port: 3000, project: "myapp", ttl: -1)
-        store.pruneExpired()
         XCTAssertFalse(store.isReserved(3000))
+        XCTAssertNil(store.reservation(for: 3000))
+    }
+
+    func test_pruneExpired_removesEntryFromDictionary() throws {
+        try store.reserve(port: 3000, project: "myapp", ttl: -1)
+        XCTAssertNotNil(store.reservations[3000], "entry should exist before prune")
+        store.pruneExpired()
+        XCTAssertNil(store.reservations[3000], "entry should be removed after prune")
     }
 
     func test_reservingAlreadyReservedPort_throws() throws {

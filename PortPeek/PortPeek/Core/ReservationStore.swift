@@ -51,12 +51,15 @@ final class ReservationStore: ObservableObject {
     }
 
     func pruneExpired() {
-        let before = reservations.count
-        reservations = reservations.filter { !$0.value.isExpired }
-        if reservations.count != before { save() }
+        let pruned = reservations.filter { !$0.value.isExpired }
+        guard pruned.count != reservations.count else { return }
+        reservations = pruned
+        save()
     }
 
     private func load() {
+        // Uses binary JSON (data(forKey:)) rather than dictionary(forKey:) because
+        // UserDefaults string-keyed dictionaries cannot round-trip Int keys without loss.
         guard let data = defaults.data(forKey: key),
               let decoded = try? JSONDecoder().decode([Int: Reservation].self, from: data)
         else { return }
