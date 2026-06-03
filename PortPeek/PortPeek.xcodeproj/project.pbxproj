@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C9D3C42A48A0415402ADF93 /* PortEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78AD6E75FF5F9CD40FE35F6 /* PortEntry.swift */; };
 		436E9E759EC8FF5CFABD4947 /* PortPeekApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAEBE243B3D5EC38D594BD9 /* PortPeekApp.swift */; };
 		5B36691D9E71AC423C69F3F0 /* PortPeekTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAFDAE90F73CF2DFC1454CE /* PortPeekTests.swift */; };
 		F55C5F0F0CF05D9C4E96DDD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D557091FC0A39780CDD6651E /* AppDelegate.swift */; };
+		F9D314D6411E767CB6BCF59A /* PortEntryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEC979EADDD465A47B8D7F2 /* PortEntryTests.swift */; };
 		FC1C59F246BC91D1C0DC9186 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91A519C3A96F6BF6CC20F558 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		4BAEBE243B3D5EC38D594BD9 /* PortPeekApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortPeekApp.swift; sourceTree = "<group>"; };
+		5EEC979EADDD465A47B8D7F2 /* PortEntryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortEntryTests.swift; sourceTree = "<group>"; };
 		91A519C3A96F6BF6CC20F558 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92E684808D1A9936EFDB519F /* PortPeek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PortPeek.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93B18C8CB473E89A2E5FD552 /* PortPeekTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PortPeekTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -32,6 +35,7 @@
 		AF706D2E02E9DE46D914AE3A /* PortPeek.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PortPeek.entitlements; sourceTree = "<group>"; };
 		C3ACFF526B52D20B98B32AC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D557091FC0A39780CDD6651E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F78AD6E75FF5F9CD40FE35F6 /* PortEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortEntry.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -44,6 +48,22 @@
 			);
 			sourceTree = "<group>";
 		};
+		24F9ACA2E5D69C1862508C00 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				5EEC979EADDD465A47B8D7F2 /* PortEntryTests.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		AD71715FB4F962B5580DE5F6 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				F78AD6E75FF5F9CD40FE35F6 /* PortEntry.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		D0CFAEDDE79DAC9F270132EA /* PortPeek */ = {
 			isa = PBXGroup;
 			children = (
@@ -52,6 +72,7 @@
 				C3ACFF526B52D20B98B32AC1 /* Info.plist */,
 				AF706D2E02E9DE46D914AE3A /* PortPeek.entitlements */,
 				4BAEBE243B3D5EC38D594BD9 /* PortPeekApp.swift */,
+				AD71715FB4F962B5580DE5F6 /* Core */,
 			);
 			path = PortPeek;
 			sourceTree = "<group>";
@@ -60,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				9DAFDAE90F73CF2DFC1454CE /* PortPeekTests.swift */,
+				24F9ACA2E5D69C1862508C00 /* Core */,
 			);
 			path = PortPeekTests;
 			sourceTree = "<group>";
@@ -159,6 +181,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9D314D6411E767CB6BCF59A /* PortEntryTests.swift in Sources */,
 				5B36691D9E71AC423C69F3F0 /* PortPeekTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -168,6 +191,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F55C5F0F0CF05D9C4E96DDD1 /* AppDelegate.swift in Sources */,
+				1C9D3C42A48A0415402ADF93 /* PortEntry.swift in Sources */,
 				436E9E759EC8FF5CFABD4947 /* PortPeekApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
