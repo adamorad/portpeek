@@ -7,6 +7,8 @@ final class MCPServer {
     private let port: UInt16
     private let queue = DispatchQueue(label: "com.portpeek.mcp", qos: .userInitiated)
 
+    /// Called when the listener reaches `.ready` (true) or fails/stops (false).
+    var onRunningChanged: ((Bool) -> Void)?
     /// Called when the listener fails to start or loses its binding (e.g. port in use).
     var onError: ((NWError) -> Void)?
 
@@ -27,13 +29,15 @@ final class MCPServer {
 
         listener.stateUpdateHandler = { [weak self] state in
             switch state {
+            case .ready:
+                print("[PortPeek] MCP server listening on 127.0.0.1:\(self?.port ?? 0)")
+                self?.onRunningChanged?(true)
             case .failed(let error):
                 print("[PortPeek] MCP server failed: \(error)")
                 self?.listener?.cancel()
                 self?.listener = nil
+                self?.onRunningChanged?(false)
                 self?.onError?(error)
-            case .ready:
-                print("[PortPeek] MCP server listening on 127.0.0.1:\(self?.port ?? 0)")
             default:
                 break
             }

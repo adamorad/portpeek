@@ -15,7 +15,7 @@ struct ContentView: View {
                         .font(.system(size: 13, weight: .bold))
                         .foregroundStyle(.primary)
                     Spacer()
-                    MCPStatusPill(isRunning: true)
+                    MCPStatusPill(isRunning: registry.isMCPServerRunning)
                     Button { showSettings = true } label: {
                         Image(systemName: "gearshape.fill")
                             .font(.system(size: 13))
@@ -43,9 +43,11 @@ struct ContentView: View {
                         .foregroundStyle(.blue)
                     Spacer()
                     if let last = registry.lastScanned {
-                        Text("scanned \(max(0, Int(-last.timeIntervalSinceNow)))s ago")
-                            .font(.system(size: 11))
-                            .foregroundStyle(.tertiary)
+                        TimelineView(.periodic(from: .now, by: 1)) { _ in
+                            Text("scanned \(max(0, Int(-last.timeIntervalSinceNow)))s ago")
+                                .font(.system(size: 11))
+                                .foregroundStyle(.tertiary)
+                        }
                     }
                 }
                 .padding(.horizontal, 14)

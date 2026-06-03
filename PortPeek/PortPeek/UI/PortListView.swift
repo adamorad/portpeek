@@ -21,7 +21,7 @@ struct PortListView: View {
                     SectionHeader(title: "Listening")
                     ForEach(listening) { entry in
                         PortRowView(entry: entry)
-                        if entry.port != listening.last?.port {
+                        if entry.id != listening.last?.id {
                             Divider().opacity(0.15).padding(.leading, 34)
                         }
                     }

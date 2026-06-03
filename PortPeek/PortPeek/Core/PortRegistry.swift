@@ -7,11 +7,12 @@ final class PortRegistry: ObservableObject {
     @Published var monitoredPorts: [Int] {
         didSet { saveMonitoredPorts(); rebuildEntries() }
     }
+    @Published var isMCPServerRunning: Bool = false
 
     let labelStore: LabelStore
     let reservationStore: ReservationStore
 
-    private(set) var lastScanned: Date?
+    @Published private(set) var lastScanned: Date?
 
     private let scanner = PortScanner(timeout: 0.5)
     private var scanTask: Task<Void, Never>?

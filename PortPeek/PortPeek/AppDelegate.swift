@@ -11,6 +11,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         menuBarController?.setup()
 
         mcpServer = MCPServer(registry: registry)
+        mcpServer?.onRunningChanged = { [weak self] running in
+            Task { @MainActor [weak self] in
+                self?.registry.isMCPServerRunning = running
+            }
+        }
         mcpServer?.onError = { error in
             print("[PortPeek] MCP server error: \(error) — port 27182 may be in use")
         }
