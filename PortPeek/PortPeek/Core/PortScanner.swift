@@ -36,17 +36,23 @@ final class PortScanner {
             // relying on the serial queue guarantee that the compiler cannot verify.
             let didResume = OSAllocatedUnfairLock(initialState: false)
 
-            conn.stateUpdateHandler = { state in
-                let first = didResume.withLock { flag -> Bool in
+            // tryConsume returns true the first time it is called, false on all
+            // subsequent calls — ensures the continuation is resumed exactly once.
+            let tryConsume = {
+                didResume.withLock { flag -> Bool in
                     guard !flag else { return false }
                     flag = true; return true
                 }
-                guard first else { return }
+            }
+
+            conn.stateUpdateHandler = { state in
                 switch state {
                 case .ready:
+                    guard tryConsume() else { return }
                     conn.cancel()
                     continuation.resume(returning: true)
                 case .failed, .cancelled:
+                    guard tryConsume() else { return }
                     continuation.resume(returning: false)
                 default:
                     break
@@ -56,11 +62,7 @@ final class PortScanner {
             conn.start(queue: queue)
 
             queue.asyncAfter(deadline: .now() + self.timeout) {
-                let first = didResume.withLock { flag -> Bool in
-                    guard !flag else { return false }
-                    flag = true; return true
-                }
-                guard first else { return }
+                guard tryConsume() else { return }
                 conn.cancel()
                 continuation.resume(returning: false)
             }
