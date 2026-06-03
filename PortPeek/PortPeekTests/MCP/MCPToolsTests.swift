@@ -22,7 +22,7 @@ final class MCPToolsTests: XCTestCase {
 
     override func tearDown() {
         suiteDefaults.synchronize()
-        UserDefaults.standard.removePersistentDomain(forName: suiteName)
+        suiteDefaults.removePersistentDomain(forName: suiteName)
     }
 
     func test_listActivePorts_returnsJSON() throws {

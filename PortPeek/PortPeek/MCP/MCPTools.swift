@@ -22,7 +22,8 @@ final class MCPTools {
                 "properties": [
                     "preferred": ["type": "integer", "description": "The port you'd like to use"],
                     "reserve": ["type": "boolean", "description": "Whether to reserve the port immediately"],
-                    "project": ["type": "string", "description": "Project name for the reservation"]
+                    "project": ["type": "string", "description": "Project name for the reservation"],
+                    "ttl_minutes": ["type": "integer", "description": "Minutes until reservation expires (default 5, clamped 1–1440)"]
                 ],
                 "required": ["preferred"]
             ] as [String: Any]
