@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A51D0CB4C3737FC6D3EC5A7 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3DAAED5FD4479957C5C27F /* SettingsView.swift */; };
 		0BA854662BB650B8BA45B454 /* PortScannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123C19FFB9705B1B97F1BCF8 /* PortScannerTests.swift */; };
 		0BEAEF17D76F60FB085D8C3C /* MCPToolsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC0D74310CBC7389AF09825 /* MCPToolsTests.swift */; };
 		0DD592A5B36F356CA41DCA9B /* PortScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94372BB4C13038F1DBC41D67 /* PortScanner.swift */; };
@@ -46,7 +45,6 @@
 /* Begin PBXFileReference section */
 		123C19FFB9705B1B97F1BCF8 /* PortScannerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortScannerTests.swift; sourceTree = "<group>"; };
 		2F458908075956C2EC15EE13 /* MenuBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarController.swift; sourceTree = "<group>"; };
-		3F3DAAED5FD4479957C5C27F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		4BAEBE243B3D5EC38D594BD9 /* PortPeekApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortPeekApp.swift; sourceTree = "<group>"; };
 		543C8022A5203753AA87903A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		553B2B56BEAB173C2EABB8B1 /* PortRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortRowView.swift; sourceTree = "<group>"; };
@@ -149,7 +147,6 @@
 				2F458908075956C2EC15EE13 /* MenuBarController.swift */,
 				E6198447756AD4FC18D1479C /* PortListView.swift */,
 				553B2B56BEAB173C2EABB8B1 /* PortRowView.swift */,
-				3F3DAAED5FD4479957C5C27F /* SettingsView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -288,7 +285,6 @@
 				C67867AF10965FFACD18A3CE /* PortRowView.swift in Sources */,
 				0DD592A5B36F356CA41DCA9B /* PortScanner.swift in Sources */,
 				CC93404792E1F1EB9FF2E7AB /* ReservationStore.swift in Sources */,
-				0A51D0CB4C3737FC6D3EC5A7 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
