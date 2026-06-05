@@ -254,7 +254,8 @@ h1 {
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
   line-height: 1.85;
-  min-height: 136px;
+  height: 166px;
+  overflow: hidden;
   position: relative;
 }
 
