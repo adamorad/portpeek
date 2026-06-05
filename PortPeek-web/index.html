@@ -130,6 +130,58 @@
 
     </div>
 
+    <!-- MCP-only section — for developers who just want the server -->
+    <section class="mcp-standalone">
+      <div class="mcp-standalone-inner">
+
+        <div class="mcp-standalone-header">
+          <span class="mcp-standalone-label">MCP Server</span>
+          <p class="mcp-standalone-sub">Works without the app. Point any MCP-compatible agent at the server.</p>
+        </div>
+
+        <div class="mcp-standalone-dialogue">
+          <div class="dialogue-node">Agent</div>
+          <div class="dialogue-wires">
+            <div class="wire wire-out">
+              <span class="wire-label">get_available_port(preferred: 3000)</span>
+              <div class="wire-track">
+                <div class="wire-line"></div>
+                <span class="wire-arrow">▶</span>
+              </div>
+            </div>
+            <div class="wire wire-in">
+              <div class="wire-track">
+                <span class="wire-arrow">◀</span>
+                <div class="wire-line"></div>
+              </div>
+              <span class="wire-label">{ port: 3001, reserved: true }</span>
+            </div>
+          </div>
+          <div class="dialogue-node dialogue-node-mcp">MCP</div>
+        </div>
+
+        <div class="mcp-standalone-tools">
+          <code>list_active_ports</code>
+          <code>get_available_port</code>
+          <code>reserve_port</code>
+          <code>release_port</code>
+        </div>
+
+        <div class="config-block">
+          <button class="copy-btn" id="copy-btn" aria-label="Copy MCP config">Copy</button>
+          <pre id="config-code">{
+  "mcpServers": {
+    "portpeek": {
+      "url": "http://localhost:27182",
+      "type": "http"
+    }
+  }
+}</pre>
+        </div>
+
+      </div>
+    </section>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

@@ -21,11 +21,11 @@ html {
 }
 
 body {
-  height: 100%;
+  min-height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 /* ── Background orbs ─────────────────────────────────────────── */
@@ -69,11 +69,12 @@ body {
   z-index: 1;
   width: 100%;
   max-width: 1080px;
+  min-height: 100vh;
   padding: 36px 48px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 52px;
-  align-items: start;
+  align-items: center;
 }
 
 .col-left,
@@ -404,6 +405,95 @@ h1 {
 .success-msg { font-size: 13px; color: var(--green); font-weight: 500; }
 .hidden { display: none; }
 
+/* ── Config block (MCP standalone) ──────────────────────────── */
+.config-block {
+  position: relative;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid var(--surface-border);
+  border-radius: 8px;
+  padding: 14px 18px;
+}
+
+.config-block pre {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  overflow-x: auto;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--surface-border);
+  border-radius: 5px;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-family: inherit;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+.copy-btn:hover { color: var(--text); background: rgba(255,255,255,0.1); }
+.copy-btn.copied { color: var(--green); }
+
+/* ── MCP standalone section ──────────────────────────────────── */
+.mcp-standalone {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border-top: 1px solid var(--surface-border);
+}
+
+.mcp-standalone-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 56px 48px 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.mcp-standalone-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mcp-standalone-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.mcp-standalone-sub {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.mcp-standalone-dialogue {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mcp-standalone-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 20px;
+}
+
+.mcp-standalone-tools code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: rgba(99,102,241,0.8);
+}
+
 /* ── Accessibility ───────────────────────────────────────────── */
 .sr-only {
   position: absolute;
@@ -417,7 +507,6 @@ h1 {
 
 /* ── Responsive: single column + scroll on mobile ────────────── */
 @media (max-width: 720px) {
-  html, body { height: auto; overflow: auto; }
   .page-grid {
     grid-template-columns: 1fr;
     padding: 48px 20px 60px;

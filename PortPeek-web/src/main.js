@@ -68,6 +68,26 @@ const observer = new IntersectionObserver(
 
 observer.observe(document.getElementById('terminal'))
 
+// ── Copy button ───────────────────────────────────────────────
+const copyBtn  = document.getElementById('copy-btn')
+const configEl = document.getElementById('config-code')
+
+copyBtn.addEventListener('click', () => {
+  navigator.clipboard.writeText(configEl.textContent.trim())
+    .then(() => {
+      copyBtn.textContent = 'Copied!'
+      copyBtn.classList.add('copied')
+      setTimeout(() => {
+        copyBtn.textContent = 'Copy'
+        copyBtn.classList.remove('copied')
+      }, 2000)
+    })
+    .catch(() => {
+      copyBtn.textContent = 'Failed'
+      setTimeout(() => { copyBtn.textContent = 'Copy' }, 2000)
+    })
+})
+
 // ── Email form ────────────────────────────────────────────────
 const emailForm  = document.getElementById('email-form')
 const emailInput = document.getElementById('email-input')
