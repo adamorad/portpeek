@@ -79,8 +79,6 @@ struct PortRowView: View {
         case .reserved(_, let expires):
             Text("agent reserved · \(max(0, Int(expires.timeIntervalSinceNow / 60)))m left")
                 .font(.system(size: 11)).foregroundStyle(.blue.opacity(0.8))
-        case .available:
-            Text("available").font(.system(size: 11)).foregroundStyle(.quaternary)
         }
     }
 
@@ -119,7 +117,6 @@ struct StatusDot: View {
         switch status {
         case .listening: return .green
         case .reserved:  return .blue
-        case .available: return Color.secondary.opacity(0.4)
         }
     }
 
@@ -127,9 +124,8 @@ struct StatusDot: View {
         Circle()
             .fill(color)
             .frame(width: 9, height: 9)
-            .shadow(color: status == .available ? .clear : color.opacity(glowing ? 0.8 : 0.4), radius: glowing ? 4 : 2)
+            .shadow(color: color.opacity(glowing ? 0.8 : 0.4), radius: glowing ? 4 : 2)
             .onAppear {
-                guard status != .available else { return }
                 withAnimation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true)) {
                     glowing = true
                 }

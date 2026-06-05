@@ -18,7 +18,7 @@ final class MenuBarController {
         statusItem = item
 
         if let button = item.button {
-            updateButton(button, activeCount: 0)
+            updateButton(button)
             button.action = #selector(togglePopover)
             button.target = self
         }
@@ -34,31 +34,19 @@ final class MenuBarController {
 
         registry.$entries
             .receive(on: RunLoop.main)
-            .sink { [weak self] entries in
-                let count = entries.filter {
-                    switch $0.status {
-                    case .listening, .reserved: return true
-                    case .available: return false
-                    }
-                }.count
+            .sink { [weak self] _ in
                 if let button = self?.statusItem?.button {
-                    self?.updateButton(button, activeCount: count)
+                    self?.updateButton(button)
                 }
             }
             .store(in: &cancellables)
     }
 
-    private func updateButton(_ button: NSStatusBarButton, activeCount: Int) {
+    private func updateButton(_ button: NSStatusBarButton) {
         let config = NSImage.SymbolConfiguration(pointSize: 16, weight: .medium)
-        button.image = NSImage(systemSymbolName: "powerplug.fill", accessibilityDescription: "PortPeek")?
+        button.image = NSImage(systemSymbolName: "binoculars.fill", accessibilityDescription: "PortPeek")?
             .withSymbolConfiguration(config)
-
-        if activeCount > 0 {
-            button.title = " \(activeCount)"
-            button.imagePosition = .imageLeft
-        } else {
-            button.title = ""
-        }
+        button.title = ""
     }
 
     @objc private func togglePopover() {
