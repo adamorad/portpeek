@@ -3,37 +3,26 @@ import Network
 import os
 
 final class PortScanner {
-    let timeout: TimeInterval
-    let batchSize: Int
-    // One shared concurrent queue for all NWConnections — avoids creating a new
-    // DispatchQueue per probe (previously 500 queues per batch × 131 batches).
+    private let timeout: TimeInterval
+    // One shared concurrent queue for all NWConnections.
     private let queue = DispatchQueue(label: "com.portpeek.scanner", attributes: .concurrent)
 
-    init(timeout: TimeInterval = 0.05, batchSize: Int = 100) {
+    init(timeout: TimeInterval = 0.2) {
         self.timeout = timeout
-        self.batchSize = batchSize
     }
 
+    /// Probes all ports concurrently and returns the set that are listening.
     func probePorts(_ ports: [Int]) async -> Set<Int> {
-        var open = Set<Int>()
-        let chunks = stride(from: 0, to: ports.count, by: batchSize).map {
-            Array(ports[$0 ..< min($0 + batchSize, ports.count)])
-        }
-        for chunk in chunks {
-            guard !Task.isCancelled else { break }
-            let batch = await withTaskGroup(of: (Int, Bool).self) { group in
-                for port in chunk {
-                    group.addTask { [self] in (port, await self.probePort(port)) }
-                }
-                var result = Set<Int>()
-                for await (port, isOpen) in group {
-                    if isOpen { result.insert(port) }
-                }
-                return result
+        await withTaskGroup(of: (Int, Bool).self) { group in
+            for port in ports {
+                group.addTask { [self] in (port, await self.probePort(port)) }
             }
-            open.formUnion(batch)
+            var open = Set<Int>()
+            for await (port, isOpen) in group {
+                if isOpen { open.insert(port) }
+            }
+            return open
         }
-        return open
     }
 
     func probePort(_ port: Int) async -> Bool {

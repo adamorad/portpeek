@@ -73,8 +73,6 @@ final class MCPTools {
                 d["status"] = "reserved"
                 d["project"] = project
                 d["expires_in_seconds"] = max(0, Int(expires.timeIntervalSinceNow))
-            case .available:
-                d["status"] = "available"
             }
             return d
         }
