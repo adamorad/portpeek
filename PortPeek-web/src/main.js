@@ -16,16 +16,16 @@ const LINE_PAUSE = 200
 const terminalLines  = document.getElementById('terminal-lines')
 const terminalCursor = document.getElementById('terminal-cursor')
 
-let animating = false
+let animationId = 0
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 async function runTerminal() {
-  if (animating) return
-  animating = true
+  const id = ++animationId
   terminalLines.innerHTML = ''
+  terminalCursor.style.display = ''
 
   for (const { text, cls } of LINES) {
     const span = document.createElement('span')
@@ -34,23 +34,23 @@ async function runTerminal() {
     terminalLines.appendChild(document.createTextNode('\n'))
 
     for (const char of text) {
+      if (animationId !== id) return
       span.textContent += char
       await sleep(CHAR_MS)
     }
+    if (animationId !== id) return
     await sleep(LINE_PAUSE)
   }
 
-  terminalCursor.style.display = 'none'
-  animating = false
+  if (animationId === id) terminalCursor.style.display = 'none'
 }
 
 function resetTerminal() {
-  animating = false
+  animationId++
   terminalLines.innerHTML = ''
   terminalCursor.style.display = ''
 }
 
-// Trigger on scroll into view; replay each time element re-enters
 let wasVisible = false
 
 const observer = new IntersectionObserver(
@@ -73,14 +73,19 @@ const copyBtn  = document.getElementById('copy-btn')
 const configEl = document.getElementById('config-code')
 
 copyBtn.addEventListener('click', () => {
-  navigator.clipboard.writeText(configEl.textContent.trim()).then(() => {
-    copyBtn.textContent = 'Copied!'
-    copyBtn.classList.add('copied')
-    setTimeout(() => {
-      copyBtn.textContent = 'Copy'
-      copyBtn.classList.remove('copied')
-    }, 2000)
-  })
+  navigator.clipboard.writeText(configEl.textContent.trim())
+    .then(() => {
+      copyBtn.textContent = 'Copied!'
+      copyBtn.classList.add('copied')
+      setTimeout(() => {
+        copyBtn.textContent = 'Copy'
+        copyBtn.classList.remove('copied')
+      }, 2000)
+    })
+    .catch(() => {
+      copyBtn.textContent = 'Failed'
+      setTimeout(() => { copyBtn.textContent = 'Copy' }, 2000)
+    })
 })
 
 // ── Email form ────────────────────────────────────────────────
@@ -91,11 +96,12 @@ const successMsg = document.getElementById('success-msg')
 emailForm.addEventListener('submit', async (e) => {
   e.preventDefault()
   try {
-    await fetch('/api/notify', {
+    const res = await fetch('/api/notify', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: emailInput.value }),
     })
+    if (!res.ok) throw new Error('server error')
     emailForm.style.display = 'none'
     successMsg.classList.remove('hidden')
   } catch {
