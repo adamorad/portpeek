@@ -1,0 +1,100 @@
+import './style.css'
+
+// ── Terminal animation ────────────────────────────────────────
+const LINES = [
+  { text: '$ claude "start a dev server on 3000"', cls: 't-cmd' },
+  { text: '  checking ports via PortPeek...',       cls: 't-dim' },
+  { text: '→ get_available_port(preferred: 3000)',  cls: 't-out' },
+  { text: '← { port: 3001, reserved: true }',       cls: 't-in'  },
+  { text: '  starting server on 3001...',            cls: 't-dim' },
+  { text: '✓ http://localhost:3001',                 cls: 't-ok'  },
+]
+
+const CHAR_MS    = 40
+const LINE_PAUSE = 200
+
+const terminalLines  = document.getElementById('terminal-lines')
+const terminalCursor = document.getElementById('terminal-cursor')
+
+let animating = false
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+async function runTerminal() {
+  if (animating) return
+  animating = true
+  terminalLines.innerHTML = ''
+
+  for (const { text, cls } of LINES) {
+    const span = document.createElement('span')
+    span.className = cls
+    terminalLines.appendChild(span)
+    terminalLines.appendChild(document.createTextNode('\n'))
+
+    for (const char of text) {
+      span.textContent += char
+      await sleep(CHAR_MS)
+    }
+    await sleep(LINE_PAUSE)
+  }
+
+  terminalCursor.style.display = 'none'
+  animating = false
+}
+
+function resetTerminal() {
+  animating = false
+  terminalLines.innerHTML = ''
+  terminalCursor.style.display = ''
+}
+
+// Trigger on scroll into view; replay each time element re-enters
+let wasVisible = false
+
+const observer = new IntersectionObserver(
+  ([entry]) => {
+    if (entry.isIntersecting && !wasVisible) {
+      wasVisible = true
+      runTerminal()
+    } else if (!entry.isIntersecting && wasVisible) {
+      wasVisible = false
+      resetTerminal()
+    }
+  },
+  { threshold: 0.3 }
+)
+
+observer.observe(document.getElementById('terminal'))
+
+// ── Copy button ───────────────────────────────────────────────
+const copyBtn  = document.getElementById('copy-btn')
+const configEl = document.getElementById('config-code')
+
+copyBtn.addEventListener('click', () => {
+  navigator.clipboard.writeText(configEl.textContent.trim()).then(() => {
+    copyBtn.textContent = 'Copied!'
+    copyBtn.classList.add('copied')
+    setTimeout(() => {
+      copyBtn.textContent = 'Copy'
+      copyBtn.classList.remove('copied')
+    }, 2000)
+  })
+})
+
+// ── Email form ────────────────────────────────────────────────
+const emailForm  = document.getElementById('email-form')
+const emailInput = document.getElementById('email-input')
+const successMsg = document.getElementById('success-msg')
+
+emailForm.addEventListener('submit', async (e) => {
+  e.preventDefault()
+  await fetch('/api/notify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: emailInput.value }),
+  })
+  emailForm.style.display = 'none'
+  successMsg.classList.remove('hidden')
+})
