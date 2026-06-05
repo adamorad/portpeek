@@ -77,7 +77,7 @@
 
       <!-- 4. Terminal simulation -->
       <section class="terminal-section">
-        <div class="terminal" id="terminal" aria-label="Terminal demo">
+        <div class="terminal" id="terminal" role="region" aria-label="Terminal demo">
           <div class="terminal-lines" id="terminal-lines"></div>
           <span class="terminal-cursor" id="terminal-cursor"></span>
         </div>
@@ -123,6 +123,7 @@
       <section class="cta-section">
         <p class="cta-label">Get notified when it launches.</p>
         <form class="email-form" id="email-form">
+          <label for="email-input" class="sr-only">Email address</label>
           <input type="email" id="email-input" placeholder="you@example.com" required autocomplete="email" />
           <button type="submit">Notify me</button>
         </form>
