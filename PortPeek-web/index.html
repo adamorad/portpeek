@@ -145,6 +145,30 @@
           <p class="mcp-standalone-sub">Works without the app. Point any MCP-compatible agent at the server.</p>
         </div>
 
+        <ol class="install-steps">
+          <li>
+            <span class="install-step-num">1</span>
+            <div>
+              <span class="install-step-title">Start PortPeek</span>
+              <span class="install-step-desc">The MCP server starts automatically on port 27182 when the app launches.</span>
+            </div>
+          </li>
+          <li>
+            <span class="install-step-num">2</span>
+            <div>
+              <span class="install-step-title">Add to your agent config</span>
+              <span class="install-step-desc">Paste the snippet below into your agent's MCP server configuration.</span>
+            </div>
+          </li>
+          <li>
+            <span class="install-step-num">3</span>
+            <div>
+              <span class="install-step-title">Use the tools</span>
+              <span class="install-step-desc">Your agent can now call <code class="inline-code">get_available_port</code> before binding to any port.</span>
+            </div>
+          </li>
+        </ol>
+
         <div class="mcp-standalone-dialogue">
           <div class="dialogue-node">Agent</div>
           <div class="dialogue-wires">
