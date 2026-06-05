@@ -87,6 +87,12 @@ body {
   justify-content: space-between;
 }
 
+.col-main {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
 /* ── 1. Hero ─────────────────────────────────────────────────── */
 .hero {
   display: flex;
