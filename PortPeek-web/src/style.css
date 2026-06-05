@@ -354,52 +354,6 @@ h1 {
 .wire-out .wire-arrow { color: rgba(59,130,246,0.5); }
 .wire-in  .wire-arrow { color: rgba(34,197,94,0.5); }
 
-/* Tool list */
-.tool-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px 16px;
-}
-
-.tool-list code {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: rgba(99,102,241,0.8);
-}
-
-/* Config block */
-.config-block {
-  position: relative;
-  background: rgba(0,0,0,0.4);
-  border: 1px solid var(--surface-border);
-  border-radius: 8px;
-  padding: 14px 18px;
-}
-
-.config-block pre {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  line-height: 1.6;
-  color: var(--text-secondary);
-  overflow-x: auto;
-}
-
-.copy-btn {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid var(--surface-border);
-  border-radius: 5px;
-  padding: 2px 8px;
-  font-size: 10px;
-  font-family: inherit;
-  color: var(--text-tertiary);
-  cursor: pointer;
-  transition: color 0.15s, background 0.15s;
-}
-.copy-btn:hover { color: var(--text); background: rgba(255,255,255,0.1); }
-.copy-btn.copied { color: var(--green); }
 
 /* ── 6. Email capture ────────────────────────────────────────── */
 .cta-section {
