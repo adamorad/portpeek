@@ -90,11 +90,15 @@ const successMsg = document.getElementById('success-msg')
 
 emailForm.addEventListener('submit', async (e) => {
   e.preventDefault()
-  await fetch('/api/notify', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: emailInput.value }),
-  })
-  emailForm.style.display = 'none'
-  successMsg.classList.remove('hidden')
+  try {
+    await fetch('/api/notify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: emailInput.value }),
+    })
+    emailForm.style.display = 'none'
+    successMsg.classList.remove('hidden')
+  } catch {
+    // leave form intact; user can retry
+  }
 })
