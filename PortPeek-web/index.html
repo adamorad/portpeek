@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PortPeek — Stop your agents from fighting over ports</title>
+    <meta name="description" content="A Mac menu bar app with a built-in MCP server. AI agents safely claim dev ports without conflicts. Coming soon to the Mac App Store." />
+    <link rel="icon" href="/app-icon.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+
+    <!-- Background orbs -->
+    <div class="bg-orbs" aria-hidden="true">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+
+    <main>
+
+      <!-- 1. Hero -->
+      <section class="hero">
+        <img src="/app-icon.png" alt="PortPeek icon" class="hero-icon" width="80" height="80" />
+        <h1>PortPeek</h1>
+        <div class="coming-soon-badge">
+          <img src="/app-icon.png" alt="" width="16" height="16" class="badge-icon" />
+          Coming soon to the Mac App Store
+        </div>
+        <p class="tagline">Stop your agents from fighting over ports.</p>
+      </section>
+
+      <!-- 2. App popover mockup -->
+      <section class="mockup-section">
+        <div class="popover-mockup">
+          <div class="popover-header">
+            <span class="popover-title">Active Ports</span>
+            <span class="mcp-badge">MCP on</span>
+          </div>
+          <div class="port-list">
+            <div class="port-row">
+              <span class="dot dot-green"></span>
+              <div class="port-info">
+                <span class="port-label">my-next-app</span>
+                <span class="port-sub">listening</span>
+              </div>
+              <span class="port-num">3000</span>
+            </div>
+            <div class="port-row">
+              <span class="dot dot-green"></span>
+              <div class="port-info">
+                <span class="port-label port-label-dim">:5173</span>
+                <span class="port-sub">listening</span>
+              </div>
+              <span class="port-num">5173</span>
+            </div>
+            <div class="port-row">
+              <span class="dot dot-blue"></span>
+              <div class="port-info">
+                <span class="port-label">claude-agent</span>
+                <span class="port-sub port-sub-blue">agent reserved · 4m left</span>
+              </div>
+              <span class="port-num">8080</span>
+            </div>
+          </div>
+          <div class="popover-footer">Scanned just now</div>
+        </div>
+      </section>
+
+      <!-- 3. Compatibility strip -->
+      <section class="compat-strip">
+        Works with Claude · Cursor · Copilot · Cline · Windsurf · any MCP-compatible agent
+      </section>
+
+      <!-- 4. Terminal simulation -->
+      <section class="terminal-section">
+        <div class="terminal" id="terminal" aria-label="Terminal demo">
+          <div class="terminal-lines" id="terminal-lines"></div>
+          <span class="terminal-cursor" id="terminal-cursor"></span>
+        </div>
+      </section>
+
+      <!-- 5. MCP flow + config -->
+      <section class="mcp-section">
+        <div class="flow-diagram">
+          <div class="flow-node">Agent</div>
+          <div class="flow-arrow">
+            <span class="flow-arrow-label">get_available_port</span>
+            <span class="flow-arrow-line">————————▶</span>
+          </div>
+          <div class="flow-node flow-node-center">PortPeek</div>
+          <div class="flow-arrow">
+            <span class="flow-arrow-label">port: 3001 ✓</span>
+            <span class="flow-arrow-line">————————▶</span>
+          </div>
+          <div class="flow-node">Server</div>
+        </div>
+
+        <div class="tool-list">
+          <code>list_active_ports</code>
+          <code>get_available_port</code>
+          <code>reserve_port</code>
+          <code>release_port</code>
+        </div>
+
+        <div class="config-block">
+          <button class="copy-btn" id="copy-btn" aria-label="Copy config">Copy</button>
+          <pre id="config-code">{
+  "mcpServers": {
+    "portpeek": {
+      "url": "http://localhost:27182",
+      "type": "http"
+    }
+  }
+}</pre>
+        </div>
+      </section>
+
+      <!-- 6. Email capture -->
+      <section class="cta-section">
+        <p class="cta-label">Get notified when it launches.</p>
+        <form class="email-form" id="email-form">
+          <input type="email" id="email-input" placeholder="you@example.com" required autocomplete="email" />
+          <button type="submit">Notify me</button>
+        </form>
+        <p class="success-msg hidden" id="success-msg">You're on the list. Thanks!</p>
+      </section>
+
+    </main>
+
+    <footer>
+      Built for developers who run too many servers at once.
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
