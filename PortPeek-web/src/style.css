@@ -84,7 +84,8 @@ body {
 .col-right {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 40px;
 }
 
 .col-main {
@@ -103,6 +104,7 @@ body {
 .hero-icon {
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(99,102,241,0.4);
+  margin-bottom: 6px;
 }
 
 h1 {
@@ -110,7 +112,7 @@ h1 {
   font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.1;
-  background: linear-gradient(135deg, #fff 30%, rgba(255,255,255,0.6));
+  background: linear-gradient(135deg, #fff 30%, rgba(255,255,255,0.82));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -132,8 +134,8 @@ h1 {
 .apple-icon { flex-shrink: 0; opacity: 0.7; }
 
 .tagline {
-  font-size: 1rem;
-  color: var(--text-secondary);
+  font-size: 1.1rem;
+  color: var(--text);
   font-weight: 400;
   line-height: 1.5;
   max-width: 320px;
@@ -249,8 +251,10 @@ h1 {
 /* ── 3. Compatibility strip ──────────────────────────────────── */
 .compat-strip {
   font-size: 11px;
-  color: var(--text-tertiary);
+  color: rgba(255,255,255,0.32);
   line-height: 1.8;
+  border-top: 1px solid var(--surface-border);
+  padding-top: 12px;
 }
 
 /* ── 4. Terminal simulation ──────────────────────────────────── */
@@ -264,9 +268,11 @@ h1 {
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
   line-height: 1.85;
-  height: 166px;
+  height: 176px;
   overflow: hidden;
   position: relative;
+  -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
 }
 
 .terminal-lines { display: flex; flex-direction: column; }
@@ -306,7 +312,7 @@ h1 {
   font-size: 12px;
   font-weight: 500;
   color: var(--text-secondary);
-  border: 1px solid var(--surface-border);
+  border: 1px solid rgba(59,130,246,0.3);
   border-radius: 100px;
   padding: 5px 14px;
   white-space: nowrap;
@@ -323,7 +329,7 @@ h1 {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 6px;
   min-width: 0;
 }
 
@@ -335,7 +341,7 @@ h1 {
 
 .wire-label {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
+  font-size: 10.5px;
   padding: 0 2px;
   white-space: nowrap;
   overflow: hidden;
@@ -373,7 +379,7 @@ h1 {
   gap: 10px;
 }
 
-.cta-label { font-size: 13px; color: var(--text-secondary); }
+.cta-label { font-size: 14px; color: var(--text); }
 
 .email-form {
   display: flex;
@@ -452,7 +458,7 @@ h1 {
 .scroll-hint {
   grid-column: 1 / -1;
   text-align: center;
-  padding-bottom: 4px;
+  padding-bottom: 8px;
 }
 
 .scroll-hint-link {
