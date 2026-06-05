@@ -13,7 +13,6 @@
   </head>
   <body>
 
-    <!-- Background orbs -->
     <div class="bg-orbs" aria-hidden="true">
       <div class="orb orb-1"></div>
       <div class="orb orb-2"></div>
@@ -22,158 +21,67 @@
 
     <div class="page-grid">
 
-      <!-- LEFT: identity + demo mockup -->
-      <div class="col-left">
-        <div class="col-main">
-
-        <section class="hero">
-          <img src="/app-icon.png" alt="PortPeek icon" class="hero-icon" width="64" height="64" />
-          <h1>PortPeek</h1>
-          <p class="tagline">Stop your agents from fighting over ports.</p>
-          <div class="coming-soon-badge">
-            <svg class="apple-icon" width="12" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-            </svg>
-            Coming soon to the Mac App Store
-          </div>
-        </section>
-
-        <section class="mockup-section">
-          <div class="popover-mockup">
-            <div class="popover-header">
-              <span class="popover-title">Active Ports</span>
-              <span class="mcp-badge">MCP on</span>
-            </div>
-            <div class="port-list">
-              <div class="port-row">
-                <span class="dot dot-green"></span>
-                <div class="port-info">
-                  <span class="port-label">my-next-app</span>
-                  <span class="port-sub">listening</span>
-                </div>
-                <span class="port-num">3000</span>
-              </div>
-              <div class="port-row">
-                <span class="dot dot-green"></span>
-                <div class="port-info">
-                  <span class="port-label port-label-dim">vite dev</span>
-                  <span class="port-sub">listening</span>
-                </div>
-                <span class="port-num">5173</span>
-              </div>
-              <div class="port-row">
-                <span class="dot dot-blue"></span>
-                <div class="port-info">
-                  <span class="port-label">claude-agent</span>
-                  <span class="port-sub port-sub-blue">agent reserved · 4m left</span>
-                </div>
-                <span class="port-num">8080</span>
-              </div>
-            </div>
-            <div class="popover-footer">Scanned just now</div>
-          </div>
-        </section>
-
-        </div><!-- /col-main -->
-        <section class="compat-strip">
-          Works with Claude · Cursor · Copilot · Cline · Windsurf · any MCP-compatible agent
-        </section>
-
-      </div>
-
-      <!-- RIGHT: terminal + MCP + email -->
-      <div class="col-right">
-        <div class="col-main">
-
-        <section class="terminal-section">
-          <div class="terminal" id="terminal" role="region" aria-label="Terminal demo">
-            <div class="terminal-lines" id="terminal-lines"></div>
-            <span class="terminal-cursor" id="terminal-cursor"></span>
-          </div>
-        </section>
-
-        <section class="mcp-section">
-
-          <!-- Agent ↔ MCP dialogue -->
-          <div class="mcp-dialogue">
-            <div class="dialogue-node">Agent</div>
-            <div class="dialogue-wires">
-              <div class="wire wire-out">
-                <span class="wire-label">get_available_port(preferred: 3000)</span>
-                <div class="wire-track">
-                  <div class="wire-line"></div>
-                  <span class="wire-arrow">▶</span>
-                </div>
-              </div>
-              <div class="wire wire-in">
-                <div class="wire-track">
-                  <span class="wire-arrow">◀</span>
-                  <div class="wire-line"></div>
-                </div>
-                <span class="wire-label">{ port: 3001, reserved: true }</span>
-              </div>
-            </div>
-            <div class="dialogue-node dialogue-node-mcp">MCP</div>
-          </div>
-
-
-        </section>
-
-        </div><!-- /col-main -->
-        <section class="cta-section">
-          <p class="cta-label">Get notified when it launches.</p>
-          <form class="email-form" id="email-form">
-            <label for="email-input" class="sr-only">Email address</label>
-            <input type="email" id="email-input" placeholder="you@example.com" required autocomplete="email" />
-            <button type="submit">Notify me</button>
-          </form>
-          <p class="success-msg hidden" id="success-msg">You're on the list. Thanks!</p>
-        </section>
-
-      </div>
-
-      <div class="scroll-hint">
-        <a href="#mcp" class="scroll-hint-link">
-          Want just the MCP? <span class="scroll-hint-arrow">↓</span>
-        </a>
-      </div>
-
-    </div>
-
-    <!-- MCP-only section — for developers who just want the server -->
-    <section class="mcp-standalone" id="mcp">
-      <div class="mcp-standalone-inner">
-
-        <div class="mcp-standalone-header">
-          <span class="mcp-standalone-label">MCP Server</span>
-          <p class="mcp-standalone-sub">Works without the app. Point any MCP-compatible agent at the server.</p>
+      <section class="hero">
+        <img src="/app-icon.png" alt="PortPeek icon" class="hero-icon" width="64" height="64" />
+        <h1>PortPeek</h1>
+        <p class="tagline">Stop your agents from fighting over ports.</p>
+        <div class="coming-soon-badge">
+          <svg class="apple-icon" width="12" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+          </svg>
+          Coming soon to the Mac App Store
         </div>
+      </section>
 
-        <ol class="install-steps">
-          <li>
-            <span class="install-step-num">1</span>
-            <div>
-              <span class="install-step-title">Start PortPeek</span>
-              <span class="install-step-desc">The MCP server starts automatically on port 27182 when the app launches.</span>
+      <section class="mockup-section">
+        <div class="popover-mockup">
+          <div class="popover-header">
+            <span class="popover-title">Active Ports</span>
+            <span class="mcp-badge">MCP on</span>
+          </div>
+          <div class="port-list">
+            <div class="port-row">
+              <span class="dot dot-green"></span>
+              <div class="port-info">
+                <span class="port-label">my-next-app</span>
+                <span class="port-sub">listening</span>
+              </div>
+              <span class="port-num">3000</span>
             </div>
-          </li>
-          <li>
-            <span class="install-step-num">2</span>
-            <div>
-              <span class="install-step-title">Add to your agent config</span>
-              <span class="install-step-desc">Paste the snippet below into your agent's MCP server configuration.</span>
+            <div class="port-row">
+              <span class="dot dot-green"></span>
+              <div class="port-info">
+                <span class="port-label port-label-dim">vite dev</span>
+                <span class="port-sub">listening</span>
+              </div>
+              <span class="port-num">5173</span>
             </div>
-          </li>
-          <li>
-            <span class="install-step-num">3</span>
-            <div>
-              <span class="install-step-title">Use the tools</span>
-              <span class="install-step-desc">Your agent can now call <code class="inline-code">get_available_port</code> before binding to any port.</span>
+            <div class="port-row">
+              <span class="dot dot-blue"></span>
+              <div class="port-info">
+                <span class="port-label">claude-agent</span>
+                <span class="port-sub port-sub-blue">agent reserved · 4m left</span>
+              </div>
+              <span class="port-num">8080</span>
             </div>
-          </li>
-        </ol>
+          </div>
+          <div class="popover-footer">Scanned just now</div>
+        </div>
+      </section>
 
-        <div class="mcp-standalone-dialogue">
+      <section class="compat-strip">
+        Works with Claude · Cursor · Copilot · Cline · Windsurf · any MCP-compatible agent
+      </section>
+
+      <section class="terminal-section">
+        <div class="terminal" id="terminal" role="region" aria-label="Terminal demo">
+          <div class="terminal-lines" id="terminal-lines"></div>
+          <span class="terminal-cursor" id="terminal-cursor"></span>
+        </div>
+      </section>
+
+      <section class="mcp-section">
+        <div class="mcp-dialogue">
           <div class="dialogue-node">Agent</div>
           <div class="dialogue-wires">
             <div class="wire wire-out">
@@ -193,17 +101,51 @@
           </div>
           <div class="dialogue-node dialogue-node-mcp">MCP</div>
         </div>
+      </section>
 
-        <div class="mcp-standalone-tools">
-          <code>list_active_ports</code>
-          <code>get_available_port</code>
-          <code>reserve_port</code>
-          <code>release_port</code>
+      <section class="cta-section">
+        <p class="cta-label">Get notified when it launches.</p>
+        <form class="email-form" id="email-form">
+          <label for="email-input" class="sr-only">Email address</label>
+          <input type="email" id="email-input" placeholder="you@example.com" required autocomplete="email" />
+          <button type="submit">Notify me</button>
+        </form>
+        <p class="success-msg hidden" id="success-msg">You're on the list. Thanks!</p>
+      </section>
+
+      <div class="scroll-hint">
+        <a href="#mcp" class="scroll-hint-link">
+          Want just the MCP? <span class="scroll-hint-arrow">↓</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- MCP-only section -->
+    <section class="mcp-standalone" id="mcp">
+      <div class="mcp-standalone-inner">
+
+        <div class="mcp-standalone-header">
+          <span class="mcp-standalone-label">MCP Server</span>
+          <p class="mcp-standalone-sub">Use PortPeek's port coordination from any MCP-compatible agent — Claude, Cursor, Cline, or anything that speaks MCP.</p>
         </div>
 
-        <div class="config-block">
-          <button class="copy-btn" id="copy-btn" aria-label="Copy MCP config">Copy</button>
-          <pre id="config-code">{
+        <ol class="install-steps">
+          <li>
+            <span class="install-step-num">1</span>
+            <div>
+              <span class="install-step-title">Open PortPeek</span>
+              <span class="install-step-desc">The MCP server starts automatically on <code class="inline-code">localhost:27182</code>. It runs in the background — no menu bar interaction required.</span>
+            </div>
+          </li>
+          <li>
+            <span class="install-step-num">2</span>
+            <div>
+              <span class="install-step-title">Add to your agent's MCP config</span>
+              <span class="install-step-desc">Paste this into your Claude, Cursor, or Cline config file:</span>
+              <div class="config-block">
+                <button class="copy-btn" id="copy-btn" aria-label="Copy MCP config">Copy</button>
+                <pre id="config-code">{
   "mcpServers": {
     "portpeek": {
       "url": "http://localhost:27182",
@@ -211,7 +153,23 @@
     }
   }
 }</pre>
-        </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <span class="install-step-num">3</span>
+            <div>
+              <span class="install-step-title">Call the tools</span>
+              <span class="install-step-desc">Your agent can now request an available port before binding. No more conflicts between sessions.</span>
+              <div class="mcp-standalone-tools">
+                <code>list_active_ports</code>
+                <code>get_available_port</code>
+                <code>reserve_port</code>
+                <code>release_port</code>
+              </div>
+            </div>
+          </li>
+        </ol>
 
       </div>
     </section>

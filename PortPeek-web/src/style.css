@@ -64,34 +64,16 @@ body {
 @keyframes drift2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-50px,30px); } }
 @keyframes drift3 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(20px,-40px); } }
 
-/* ── Two-column page grid ────────────────────────────────────── */
+/* ── Single-column page grid ─────────────────────────────────── */
 .page-grid {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 1080px;
-  height: 100vh;
-  padding: 48px 48px 32px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr auto;
-  column-gap: 52px;
-  row-gap: 0;
-  align-items: stretch;
-}
-
-.col-left,
-.col-right {
+  max-width: 600px;
+  padding: 64px 32px 48px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  gap: 40px;
-}
-
-.col-main {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
+  gap: 36px;
 }
 
 /* ── 1. Hero ─────────────────────────────────────────────────── */
@@ -456,7 +438,6 @@ h1 {
 
 /* ── Scroll hint ─────────────────────────────────────────────── */
 .scroll-hint {
-  grid-column: 1 / -1;
   text-align: center;
   padding-bottom: 8px;
 }
@@ -559,6 +540,14 @@ h1 {
   gap: 2px;
 }
 
+.install-steps .config-block {
+  margin-top: 10px;
+}
+
+.install-steps .mcp-standalone-tools {
+  margin-top: 10px;
+}
+
 .install-step-title {
   font-size: 13px;
   font-weight: 500;
@@ -600,16 +589,13 @@ h1 {
   border: 0;
 }
 
-/* ── Responsive: single column + scroll on mobile ────────────── */
-@media (max-width: 720px) {
-  .page-grid {
-    grid-template-columns: 1fr;
-    padding: 48px 20px 60px;
-    gap: 36px;
-  }
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .page-grid { padding: 48px 20px 48px; gap: 28px; }
   h1 { font-size: 2rem; }
   .email-form { flex-direction: column; }
   .email-form button { width: 100%; }
   .mcp-dialogue { flex-wrap: wrap; gap: 8px; }
   .dialogue-wires { width: 100%; order: 3; }
+  .mcp-standalone-inner { padding: 40px 20px 56px; }
 }
