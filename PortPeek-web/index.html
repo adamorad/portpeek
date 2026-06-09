@@ -47,20 +47,9 @@
           <p class="success-msg hidden" id="success-msg">You're on the list. Thanks!</p>
         </div>
 
-        <!-- Terminal window — the hero visual -->
-        <div class="terminal-window">
-          <div class="window-chrome">
-            <div class="window-dots" aria-hidden="true">
-              <span class="dot-red"></span>
-              <span class="dot-yellow"></span>
-              <span class="dot-green"></span>
-            </div>
-            <span class="window-title">portpeek — mcp demo</span>
-          </div>
-          <div class="terminal" id="terminal" role="region" aria-label="Terminal demo">
-            <div class="terminal-lines" id="terminal-lines"></div>
-            <span class="terminal-cursor" id="terminal-cursor"></span>
-          </div>
+        <!-- App screenshot — hero visual -->
+        <div class="app-window-wrap">
+          <img src="/app-screenshot.png" alt="PortPeek app showing active ports" class="app-screenshot" width="915" height="1127" />
         </div>
 
         <p class="compat-strip">Works with Claude · Cursor · Copilot · Cline · Windsurf · any MCP-compatible agent</p>
@@ -68,7 +57,7 @@
       </div>
 
       <a class="scroll-indicator" href="#mcp">
-        MCP server <span class="scroll-arrow">↓</span>
+        Want just the MCP Server? <span class="scroll-arrow">↓</span>
       </a>
     </section>
 
@@ -77,73 +66,56 @@
       <div class="fold2-inner">
 
         <div class="fold2-header">
-          <span class="fold2-label">MCP Server</span>
-          <h2 class="fold2-headline">Port coordination for your agents.</h2>
-          <p class="fold2-sub">Three lines of config. No conflicts.</p>
+          <span class="fold2-label fold2-label--mono">portpeek-mcp</span>
+          <h2 class="fold2-headline">No app. Just the server.</h2>
+          <p class="fold2-sub">A headless CLI that runs the MCP server in the background. No GUI, no menu bar. Same 4 tools, same config — zero overhead.</p>
         </div>
 
-        <div class="wire-panel">
-          <div class="mcp-dialogue">
-            <div class="dialogue-node">Agent</div>
-            <div class="dialogue-wires">
-              <div class="wire wire-out">
-                <span class="wire-label">get_available_port(preferred: 3000)</span>
-                <div class="wire-track">
-                  <div class="wire-line"></div>
-                  <span class="wire-arrow">▶</span>
-                </div>
-              </div>
-              <div class="wire wire-in">
-                <div class="wire-track">
-                  <span class="wire-arrow">◀</span>
-                  <div class="wire-line"></div>
-                </div>
-                <span class="wire-label">{ port: 3001, reserved: true }</span>
-              </div>
-            </div>
-            <div class="dialogue-node dialogue-node-mcp">MCP</div>
+        <!-- Install block -->
+        <div class="install-block">
+          <div class="install-tabs" role="tablist">
+            <button class="install-tab active" role="tab" data-tab="brew">Homebrew</button>
+            <button class="install-tab" role="tab" data-tab="download">Download</button>
+            <button class="install-tab" role="tab" data-tab="clone">Clone</button>
+          </div>
+          <div class="install-panel" id="tab-brew">
+            <code id="brew-cmd">brew install portpeek/tap/portpeek-mcp</code>
+            <button class="copy-btn" data-copy="brew-cmd" aria-label="Copy brew command">Copy</button>
+          </div>
+          <div class="install-panel hidden" id="tab-download">
+            <span class="install-coming">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="opacity:0.5">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+              </svg>
+              macOS .dmg — coming soon
+            </span>
+          </div>
+          <div class="install-panel hidden" id="tab-clone">
+            <code id="clone-cmd">git clone https://github.com/portpeek/portpeek &amp;&amp; cd portpeek/mcp-server &amp;&amp; swift build -c release</code>
+            <button class="copy-btn" data-copy="clone-cmd" aria-label="Copy clone command">Copy</button>
           </div>
         </div>
 
-        <ol class="install-steps">
-          <li class="install-step">
-            <span class="step-num">1</span>
-            <div class="step-body">
-              <span class="step-title">Start PortPeek</span>
-              <span class="step-desc">The MCP server starts automatically on <code class="inline-code">localhost:27182</code>. Runs in the background — no UI interaction required.</span>
-            </div>
-          </li>
-          <li class="install-step">
-            <span class="step-num">2</span>
-            <div class="step-body">
-              <span class="step-title">Add to your agent's MCP config</span>
-              <div class="config-block">
-                <button class="copy-btn" id="copy-btn" aria-label="Copy MCP config">Copy</button>
-                <pre id="config-code">{
-  "mcpServers": {
-    "portpeek": {
-      "url": "http://localhost:27182",
-      "type": "http"
-    }
-  }
-}</pre>
-              </div>
-            </div>
-          </li>
-          <li class="install-step">
-            <span class="step-num">3</span>
-            <div class="step-body">
-              <span class="step-title">Call the tools</span>
-              <span class="step-desc">Your agent requests a port before binding — no more conflicts between sessions.</span>
-              <div class="tool-list">
-                <code>list_active_ports</code>
-                <code>get_available_port</code>
-                <code>reserve_port</code>
-                <code>release_port</code>
-              </div>
-            </div>
-          </li>
-        </ol>
+        <!-- MCP config snippet -->
+        <div class="mcp-config-block">
+          <p class="config-label">Add to your agent config</p>
+          <div class="config-row">
+            <pre id="config-code">{"mcpServers":{"portpeek":{"url":"http://localhost:27182"}}}</pre>
+            <button class="copy-btn" id="copy-btn" aria-label="Copy MCP config">Copy</button>
+          </div>
+        </div>
+
+        <div class="fold2-tools">
+          <p class="fold2-tools-label">Available tools</p>
+          <div class="tool-pills">
+            <span class="tool-pill">list_active_ports</span>
+            <span class="tool-pill">get_available_port</span>
+            <span class="tool-pill">reserve_port</span>
+            <span class="tool-pill">release_port</span>
+          </div>
+        </div>
+
+        <p class="fold2-upgrade">Want port visibility in your menu bar? <a href="#top" class="fold2-upgrade-link">Get PortPeek ↑</a></p>
 
       </div>
     </section>
