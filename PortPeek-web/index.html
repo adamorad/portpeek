@@ -5,7 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PortPeek — Stop your agents from fighting over ports</title>
     <meta name="description" content="A Mac menu bar app with a built-in MCP server. AI agents safely claim dev ports without conflicts. Coming soon to the Mac App Store." />
+
+    <!-- Open Graph -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content="https://adamorad.github.io/portpeek/" />
+    <meta property="og:title"       content="PortPeek — Stop your agents from fighting over ports" />
+    <meta property="og:description" content="A Mac menu bar app with a built-in MCP server. AI agents safely claim dev ports without conflicts." />
+    <meta property="og:image"       content="https://adamorad.github.io/portpeek/app-screenshot.png" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content="PortPeek — Stop your agents from fighting over ports" />
+    <meta name="twitter:description" content="A Mac menu bar app with a built-in MCP server. AI agents safely claim dev ports without conflicts." />
+    <meta name="twitter:image"       content="https://adamorad.github.io/portpeek/app-screenshot.png" />
+
     <link rel="icon" href="/app-icon.png" type="image/png" />
+    <link rel="canonical" href="https://adamorad.github.io/portpeek/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -83,11 +98,11 @@
             <button class="copy-btn" data-copy="brew-cmd" aria-label="Copy brew command">Copy</button>
           </div>
           <div class="install-panel hidden" id="tab-download">
-            <code id="download-cmd">curl -Lo portpeek-mcp.zip https://github.com/adamorad/portpeek/releases/latest/download/portpeek-mcp-macos-arm64.zip && unzip portpeek-mcp.zip && mv portpeek-mcp /usr/local/bin/</code>
+            <code id="download-cmd">curl -Lo portpeek-mcp.zip https://github.com/adamorad/portpeek/releases/latest/download/portpeek-mcp-macos-arm64.zip &amp;&amp; unzip portpeek-mcp.zip &amp;&amp; mv portpeek-mcp /usr/local/bin/</code>
             <button class="copy-btn" data-copy="download-cmd" aria-label="Copy download command">Copy</button>
           </div>
           <div class="install-panel hidden" id="tab-clone">
-            <code id="clone-cmd">git clone https://github.com/adamorad/portpeek &amp;&amp; cd portpeek/mcp-server &amp;&amp; swift build -c release</code>
+            <code id="clone-cmd">git clone https://github.com/adamorad/portpeek &amp;&amp; cd portpeek/mcp-server &amp;&amp; swift build -c release &amp;&amp; cp .build/release/portpeek-mcp /usr/local/bin/</code>
             <button class="copy-btn" data-copy="clone-cmd" aria-label="Copy clone command">Copy</button>
           </div>
         </div>
@@ -102,11 +117,11 @@
         <div class="mcp-config-block" id="run-step">
           <p class="config-label">Run it</p>
           <div class="config-row">
-            <pre>portpeek-mcp</pre>
+            <pre id="run-cmd">portpeek-mcp</pre>
+            <button class="copy-btn" data-copy="run-cmd" aria-label="Copy run command">Copy</button>
           </div>
           <p class="run-note">Or auto-start at login: <code>portpeek-mcp --install-launch-agent</code></p>
         </div>
-
 
         <!-- MCP config snippet -->
         <div class="mcp-config-block">
@@ -129,7 +144,7 @@
 
         <p class="fold2-upgrade">Want port visibility in your menu bar? <a href="#top" class="fold2-upgrade-link">Get PortPeek ↑</a></p>
 
-        <p class="fold2-credit">Built by <a href="https://linkedin.com/in/adammorad" class="fold2-credit-link" target="_blank" rel="noopener">Adam Morad</a></p>
+        <p class="fold2-credit">Built by <a href="https://il.linkedin.com/in/adam-morad" class="fold2-credit-link" target="_blank" rel="noopener">Adam Morad</a></p>
 
       </div>
     </section>

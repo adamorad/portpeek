@@ -19,11 +19,25 @@ function attachCopy(btn, getText) {
   })
 }
 
+// ── Install tabs ─────────────────────────────────────────────
+document.querySelectorAll('.install-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.install-tab').forEach(t => t.classList.remove('active'))
+    document.querySelectorAll('.install-panel').forEach(p => p.classList.add('hidden'))
+    tab.classList.add('active')
+    document.getElementById('tab-' + tab.dataset.tab)?.classList.remove('hidden')
+  })
+})
+
+document.querySelectorAll('.copy-btn[data-copy]').forEach(btn => {
+  attachCopy(btn, () => document.getElementById(btn.dataset.copy)?.textContent ?? '')
+})
+
 // ── Agent tabs (config section) ───────────────────────────────
 const HTTP_CONFIG  = '{"mcpServers":{"portpeek":{"url":"http://localhost:27182"}}}'
 const STDIO_CONFIG = '{"mcpServers":{"portpeek":{"command":"portpeek-mcp","args":["--stdio"]}}}'
 
-const runStep   = document.getElementById('run-step')
+const runStep    = document.getElementById('run-step')
 const configCode = document.getElementById('config-code')
 
 document.querySelectorAll('.agent-tab').forEach(tab => {
@@ -47,16 +61,13 @@ const successMsg = document.getElementById('success-msg')
 
 emailForm.addEventListener('submit', async (e) => {
   e.preventDefault()
-  try {
-    const res = await fetch('/api/notify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: emailInput.value }),
-    })
-    if (!res.ok) throw new Error('server error')
-    emailForm.style.display = 'none'
-    successMsg.classList.remove('hidden')
-  } catch {
-    // leave form intact; user can retry
-  }
+  const email = emailInput.value
+  emailForm.style.display = 'none'
+  successMsg.classList.remove('hidden')
+  // Best-effort delivery — fire and forget so UX is never blocked
+  fetch('https://formsubmit.co/ajax/adammor17@gmail.com', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({ email, _subject: 'PortPeek waitlist signup', _captcha: 'false' }),
+  }).catch(() => {})
 })

@@ -3,7 +3,7 @@
 A lightweight MCP server that coordinates dev port usage between AI agents.
 Runs headlessly on macOS — no GUI required.
 
-Want port visibility in your menu bar? → [Get PortPeek](https://portpeek.dev)
+Want port visibility in your menu bar? → [Get PortPeek](https://adamorad.github.io/portpeek/)
 
 ## Install
 
@@ -29,10 +29,18 @@ cp .build/release/portpeek-mcp /usr/local/bin/
 
 ## Usage
 
+### HTTP transport (Cursor, VS Code, Windsurf, Claude Code)
+
 Start the server (runs in the foreground):
 ```bash
 portpeek-mcp
 # [portpeek-mcp] listening on 127.0.0.1:27182
+```
+
+Or auto-start at login via a macOS Launch Agent:
+```bash
+portpeek-mcp --install-launch-agent
+# To remove: portpeek-mcp --uninstall-launch-agent
 ```
 
 Add to your agent config:
@@ -41,6 +49,20 @@ Add to your agent config:
   "mcpServers": {
     "portpeek": {
       "url": "http://localhost:27182"
+    }
+  }
+}
+```
+
+### Stdio transport (Claude Desktop)
+
+Claude Desktop launches `portpeek-mcp` as a subprocess — no separate startup needed:
+```json
+{
+  "mcpServers": {
+    "portpeek": {
+      "command": "portpeek-mcp",
+      "args": ["--stdio"]
     }
   }
 }
@@ -60,3 +82,4 @@ Add to your agent config:
 - Binds to `127.0.0.1:27182` only (never exposed to the network)
 - Reservations are in-memory and lost on restart (by design)
 - Compatible with PortPeek app — same protocol, same port, same config
+- macOS 13 (Ventura) or later
