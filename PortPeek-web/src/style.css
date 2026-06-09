@@ -542,8 +542,8 @@ h1 {
 /* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 640px) {
   .fold1          { min-height: 100svh; justify-content: flex-start; padding-bottom: 0; }
-  .fold1-inner    { padding-top: 44px; gap: 18px; flex: 1; }
-  .app-window-wrap { display: none; }
+  .fold1-inner    { padding-top: 44px; gap: 14px; flex: 1; }
+  .app-screenshot { width: min(140px, 38vw); }
   h1              { font-size: 1.75rem; }
   .tagline        { font-size: 0.9rem; }
   .email-form     { flex-direction: column; align-items: stretch; }
