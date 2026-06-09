@@ -52,10 +52,10 @@ final class MCPTools {
         ]
     ]
 
-    func call(name: String, arguments: [String: Any]) -> String {
+    func call(name: String, arguments: [String: Any]) async -> String {
         switch name {
         case "list_active_ports":  return listActivePorts()
-        case "get_available_port": return getAvailablePort(arguments)
+        case "get_available_port": return await getAvailablePort(arguments)
         case "reserve_port":       return reservePort(arguments)
         case "release_port":       return releasePort(arguments)
         default:                   return jsonString(["error": "Unknown tool: \(name)"])
@@ -79,7 +79,7 @@ final class MCPTools {
         return jsonString(["ports": ports])
     }
 
-    private func getAvailablePort(_ args: [String: Any]) -> String {
+    private func getAvailablePort(_ args: [String: Any]) async -> String {
         guard let preferred = args["preferred"] as? Int else {
             return jsonString(["error": "preferred port required"])
         }
@@ -90,8 +90,13 @@ final class MCPTools {
         let candidates = ([preferred] + (1...20).map { preferred + $0 }).filter { $0 != 27182 }
 
         for port in candidates {
-            let isFree = registry.entries.first { $0.port == port } == nil
-            guard isFree else { continue }
+            // Skip ports already reserved in the registry.
+            let isReserved = registry.entries.first { $0.port == port && $0.status != .listening } != nil
+            guard !isReserved else { continue }
+
+            // Live probe — catches processes listening on ports outside the monitored list.
+            let isListening = await registry.scanner.probePort(port)
+            guard !isListening else { continue }
 
             if shouldReserve {
                 try? registry.reserve(port: port, project: project, ttlMinutes: ttl)

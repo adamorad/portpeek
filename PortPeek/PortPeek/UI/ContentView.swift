@@ -41,7 +41,6 @@ struct ContentView: View {
         .frame(width: 316)
         .background(
             VisualEffectView(material: .hudWindow, blendingMode: .behindWindow)
-                .ignoresSafeArea()
         )
     }
 }

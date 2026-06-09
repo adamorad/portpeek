@@ -87,7 +87,7 @@ final class MCPServer {
                 let handler = MCPHandler(registry: self.registry)
                 let responseBody: Data
                 do {
-                    responseBody = try handler.handle(body)
+                    responseBody = try await handler.handle(body)
                 } catch {
                     let errBody = self.buildInternalErrorResponse()
                     connection.send(

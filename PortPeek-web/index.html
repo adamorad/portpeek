@@ -92,20 +92,28 @@
           </div>
         </div>
 
-        <!-- Run step -->
-        <div class="mcp-config-block">
+        <!-- Agent tabs -->
+        <div class="agent-tabs" role="tablist">
+          <button class="agent-tab active" role="tab" data-agent="http">Cursor · VS Code · Windsurf · Claude Code</button>
+          <button class="agent-tab" role="tab" data-agent="stdio">Claude Desktop</button>
+        </div>
+
+        <!-- Run step (http only) -->
+        <div class="mcp-config-block" id="run-step">
           <p class="config-label">Run it</p>
           <div class="config-row">
             <pre>portpeek-mcp</pre>
           </div>
+          <p class="run-note">Or auto-start at login: <code>portpeek-mcp --install-launch-agent</code></p>
         </div>
+
 
         <!-- MCP config snippet -->
         <div class="mcp-config-block">
           <p class="config-label">Add to your agent config</p>
           <div class="config-row">
             <pre id="config-code">{"mcpServers":{"portpeek":{"url":"http://localhost:27182"}}}</pre>
-            <button class="copy-btn" id="copy-btn" aria-label="Copy MCP config">Copy</button>
+            <button class="copy-btn" id="copy-config-btn" aria-label="Copy MCP config">Copy</button>
           </div>
         </div>
 
@@ -120,6 +128,8 @@
         </div>
 
         <p class="fold2-upgrade">Want port visibility in your menu bar? <a href="#top" class="fold2-upgrade-link">Get PortPeek ↑</a></p>
+
+        <p class="fold2-credit">Built by <a href="https://linkedin.com/in/adammorad" class="fold2-credit-link" target="_blank" rel="noopener">Adam Morad</a></p>
 
       </div>
     </section>

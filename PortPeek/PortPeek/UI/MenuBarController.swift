@@ -43,9 +43,21 @@ final class MenuBarController {
     }
 
     private func updateButton(_ button: NSStatusBarButton) {
-        let config = NSImage.SymbolConfiguration(pointSize: 16, weight: .medium)
-        button.image = NSImage(systemSymbolName: "binoculars.fill", accessibilityDescription: "PortPeek")?
-            .withSymbolConfiguration(config)
+        let config = NSImage.SymbolConfiguration(pointSize: 13, weight: .medium)
+        guard let symbol = NSImage(systemSymbolName: "binoculars.fill", accessibilityDescription: "PortPeek")?
+            .withSymbolConfiguration(config) else { return }
+
+        let barHeight = NSStatusBar.system.thickness
+        let container = NSImage(size: NSSize(width: symbol.size.width + 4, height: barHeight))
+        container.lockFocus()
+        symbol.draw(
+            at: NSPoint(x: 2, y: (barHeight - symbol.size.height) / 2),
+            from: .zero, operation: .sourceOver, fraction: 1.0
+        )
+        container.unlockFocus()
+        container.isTemplate = true
+
+        button.image = container
         button.title = ""
     }
 

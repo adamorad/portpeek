@@ -8,7 +8,7 @@ final class MCPHandler {
         self.registry = registry
     }
 
-    func handle(_ data: Data) throws -> Data {
+    func handle(_ data: Data) async throws -> Data {
         guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
               let method = json["method"] as? String,
               let rawId = json["id"],
@@ -33,7 +33,7 @@ final class MCPHandler {
             let params = json["params"] as? [String: Any]
             let name = params?["name"] as? String ?? ""
             let arguments = params?["arguments"] as? [String: Any] ?? [:]
-            let toolResult = MCPTools(registry: registry).call(name: name, arguments: arguments)
+            let toolResult = await MCPTools(registry: registry).call(name: name, arguments: arguments)
             return try successResponse(id: id, result: ["content": [["type": "text", "text": toolResult]]])
 
         case "notifications/initialized":
