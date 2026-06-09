@@ -1,92 +1,44 @@
 import './style.css'
 
-// ── Terminal animation ────────────────────────────────────────
-const LINES = [
-  { text: '$ claude "start a dev server on 3000"', cls: 't-cmd' },
-  { text: '  checking ports via PortPeek...',       cls: 't-dim' },
-  { text: '→ get_available_port(preferred: 3000)',  cls: 't-out' },
-  { text: '← { port: 3001, reserved: true }',       cls: 't-in'  },
-  { text: '  starting server on 3001...',            cls: 't-dim' },
-  { text: '✓ http://localhost:3001',                 cls: 't-ok'  },
-]
-
-const CHAR_MS    = 40
-const LINE_PAUSE = 200
-
-const terminalLines  = document.getElementById('terminal-lines')
-const terminalCursor = document.getElementById('terminal-cursor')
-
-let animationId = 0
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms))
+// ── Copy helper ───────────────────────────────────────────────
+function attachCopy(btn, getText) {
+  btn.addEventListener('click', () => {
+    navigator.clipboard.writeText(getText().trim())
+      .then(() => {
+        btn.textContent = 'Copied!'
+        btn.classList.add('copied')
+        setTimeout(() => {
+          btn.textContent = 'Copy'
+          btn.classList.remove('copied')
+        }, 2000)
+      })
+      .catch(() => {
+        btn.textContent = 'Failed'
+        setTimeout(() => { btn.textContent = 'Copy' }, 2000)
+      })
+  })
 }
 
-async function runTerminal() {
-  const id = ++animationId
-  terminalLines.innerHTML = ''
-  terminalCursor.style.display = ''
+// ── Agent tabs (config section) ───────────────────────────────
+const HTTP_CONFIG  = '{"mcpServers":{"portpeek":{"url":"http://localhost:27182"}}}'
+const STDIO_CONFIG = '{"mcpServers":{"portpeek":{"command":"portpeek-mcp","args":["--stdio"]}}}'
 
-  for (const { text, cls } of LINES) {
-    const span = document.createElement('span')
-    span.className = cls
-    terminalLines.appendChild(span)
-    terminalLines.appendChild(document.createTextNode('\n'))
+const runStep   = document.getElementById('run-step')
+const configCode = document.getElementById('config-code')
 
-    for (const char of text) {
-      if (animationId !== id) return
-      span.textContent += char
-      await sleep(CHAR_MS)
-    }
-    if (animationId !== id) return
-    await sleep(LINE_PAUSE)
-  }
-
-  if (animationId === id) terminalCursor.style.display = 'none'
-}
-
-function resetTerminal() {
-  animationId++
-  terminalLines.innerHTML = ''
-  terminalCursor.style.display = ''
-}
-
-let wasVisible = false
-
-const observer = new IntersectionObserver(
-  ([entry]) => {
-    if (entry.isIntersecting && !wasVisible) {
-      wasVisible = true
-      runTerminal()
-    } else if (!entry.isIntersecting && wasVisible) {
-      wasVisible = false
-      resetTerminal()
-    }
-  },
-  { threshold: 0.3 }
-)
-
-observer.observe(document.getElementById('terminal'))
-
-// ── Copy button ───────────────────────────────────────────────
-const copyBtn  = document.getElementById('copy-btn')
-const configEl = document.getElementById('config-code')
-
-copyBtn.addEventListener('click', () => {
-  navigator.clipboard.writeText(configEl.textContent.trim())
-    .then(() => {
-      copyBtn.textContent = 'Copied!'
-      copyBtn.classList.add('copied')
-      setTimeout(() => {
-        copyBtn.textContent = 'Copy'
-        copyBtn.classList.remove('copied')
-      }, 2000)
-    })
-    .catch(() => {
-      copyBtn.textContent = 'Failed'
-      setTimeout(() => { copyBtn.textContent = 'Copy' }, 2000)
-    })
+document.querySelectorAll('.agent-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.agent-tab').forEach(t => t.classList.remove('active'))
+    tab.classList.add('active')
+    const isStdio = tab.dataset.agent === 'stdio'
+    configCode.textContent = isStdio ? STDIO_CONFIG : HTTP_CONFIG
+    if (runStep) runStep.style.display = isStdio ? 'none' : ''
+  })
 })
+
+// ── Config copy button ────────────────────────────────────────
+const copyConfigBtn = document.getElementById('copy-config-btn')
+if (copyConfigBtn && configCode) attachCopy(copyConfigBtn, () => configCode.textContent)
 
 // ── Email form ────────────────────────────────────────────────
 const emailForm  = document.getElementById('email-form')
