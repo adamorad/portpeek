@@ -11,7 +11,7 @@ final class PortRegistry: ObservableObject {
     let labelStore: LabelStore
     let reservationStore: ReservationStore
 
-    private let scanner = PortScanner()
+    let scanner = PortScanner()
     private var scanTask: Task<Void, Never>?
 
     init(
