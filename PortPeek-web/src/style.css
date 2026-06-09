@@ -309,6 +309,7 @@ h1 {
   justify-content: space-between;
   gap: 12px;
   padding: 14px 16px;
+  min-width: 0;
 }
 .install-panel.hidden { display: none; }
 .install-panel code {
@@ -318,6 +319,8 @@ h1 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
 }
 .install-coming {
   display: flex;
@@ -325,6 +328,48 @@ h1 {
   gap: 7px;
   font-size: 13px;
   color: var(--text-tertiary);
+}
+
+/* ── Click to Install ────────────────────────────────────────── */
+.click-install-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 20px;
+  background: rgba(99,102,241,0.12);
+  border: 1px solid rgba(99,102,241,0.35);
+  border-radius: 12px;
+  color: rgba(180,182,255,0.95);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.click-install-btn:hover {
+  background: rgba(99,102,241,0.2);
+  border-color: rgba(99,102,241,0.55);
+  color: #fff;
+}
+.click-install-btn svg { flex-shrink: 0; }
+
+.install-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  color: var(--text-tertiary);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.install-divider::before,
+.install-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--surface-border);
 }
 
 /* ── Copy button (shared) ────────────────────────────────────── */
