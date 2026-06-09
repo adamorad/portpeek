@@ -551,10 +551,11 @@ h1 {
 
   .fold1-inner {
     padding-top: 40px;
-    gap: 10px;
+    gap: 8px;
     flex: 1;
     min-height: 0;
     width: 100%;
+    justify-content: space-evenly;
   }
 
   h1 { font-size: clamp(1.5rem, 6.5vw, 2rem); }
@@ -569,21 +570,17 @@ h1 {
   .email-form input  { width: 100%; min-height: 44px; }
   .email-form button { width: 100%; min-height: 44px; }
 
-  /* Screenshot: fills whatever vertical space remains after text/form */
+  /* Screenshot: fixed proportional height, no flex-fill */
   .app-window-wrap {
-    flex: 1;
-    min-height: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    padding: 4px 0;
   }
 
   .app-screenshot {
-    height: 100%;
+    max-height: clamp(100px, 22dvh, 180px);
     width: auto;
-    max-width: min(180px, 42vw);
+    max-width: 100%;
     object-fit: contain;
   }
 
