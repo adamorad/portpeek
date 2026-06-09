@@ -30,6 +30,29 @@ document.querySelectorAll('.copy-btn[data-copy]').forEach(btn => {
   attachCopy(btn, () => document.getElementById(btn.dataset.copy)?.textContent ?? '')
 })
 
+// ── Click to Install (.command file) ─────────────────────────
+document.getElementById('click-install-btn')?.addEventListener('click', () => {
+  const script = `#!/bin/bash
+clear
+echo "Installing portpeek-mcp..."
+echo ""
+if brew install adamorad/tap/portpeek-mcp && portpeek-mcp --install-launch-agent; then
+  echo ""
+  echo "Done! portpeek-mcp is installed and will start at login."
+else
+  echo ""
+  echo "Something went wrong. Try the manual install at https://adamorad.github.io/portpeek/"
+fi
+echo ""
+read -rp "Press Enter to close this window..."
+`
+  const blob = new Blob([script], { type: 'application/octet-stream' })
+  const url  = URL.createObjectURL(blob)
+  const a    = Object.assign(document.createElement('a'), { href: url, download: 'install-portpeek-mcp.command' })
+  a.click()
+  URL.revokeObjectURL(url)
+})
+
 // ── Config copy button ────────────────────────────────────────
 const copyConfigBtn = document.getElementById('copy-config-btn')
 const configCode    = document.getElementById('config-code')
