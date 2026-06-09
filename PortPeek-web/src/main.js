@@ -19,9 +19,13 @@ function attachCopy(btn, getText) {
 // ── Install tabs ─────────────────────────────────────────────
 document.querySelectorAll('.install-tab').forEach(tab => {
   tab.addEventListener('click', () => {
-    document.querySelectorAll('.install-tab').forEach(t => t.classList.remove('active'))
+    document.querySelectorAll('.install-tab').forEach(t => {
+      t.classList.remove('active')
+      t.setAttribute('aria-selected', 'false')
+    })
     document.querySelectorAll('.install-panel').forEach(p => p.classList.add('hidden'))
     tab.classList.add('active')
+    tab.setAttribute('aria-selected', 'true')
     document.getElementById('tab-' + tab.dataset.tab)?.classList.remove('hidden')
   })
 })
@@ -62,15 +66,28 @@ if (copyConfigBtn && configCode) attachCopy(copyConfigBtn, () => configCode.text
 const emailForm  = document.getElementById('email-form')
 const emailInput = document.getElementById('email-input')
 const successMsg = document.getElementById('success-msg')
+const errorMsg   = document.getElementById('error-msg')
 
-emailForm.addEventListener('submit', async (e) => {
+emailForm?.addEventListener('submit', async (e) => {
   e.preventDefault()
-  const email = emailInput.value
-  emailForm.style.display = 'none'
-  successMsg.classList.remove('hidden')
-  fetch('https://formsubmit.co/ajax/adammor17@gmail.com', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify({ email, _subject: 'PortPeek waitlist signup', _captcha: 'false' }),
-  }).catch(() => {})
+  const email = emailInput.value.trim()
+  const submitBtn = emailForm.querySelector('button[type="submit"]')
+  submitBtn.disabled = true
+  submitBtn.textContent = 'Sending…'
+  errorMsg?.classList.add('hidden')
+
+  try {
+    const res = await fetch('https://formsubmit.co/ajax/adammor17@gmail.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ email, _subject: 'PortPeek waitlist signup', _captcha: 'false' }),
+    })
+    if (!res.ok) throw new Error('server error')
+    emailForm.style.display = 'none'
+    successMsg?.classList.remove('hidden')
+  } catch {
+    submitBtn.disabled = false
+    submitBtn.textContent = 'Notify me'
+    errorMsg?.classList.remove('hidden')
+  }
 })

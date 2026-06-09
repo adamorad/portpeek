@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0a12" />
     <title>PortPeek — Stop your agents from fighting over ports</title>
     <meta name="description" content="A Mac menu bar app with a built-in MCP server. AI agents safely claim dev ports without conflicts. Coming soon to the Mac App Store." />
 
@@ -35,7 +36,7 @@
     </div>
 
     <!-- ── Fold 1 ─────────────────────────────────────────────── -->
-    <section class="fold1">
+    <section class="fold1" id="top">
       <div class="fold1-inner">
 
         <div class="hero">
@@ -43,8 +44,8 @@
             <img src="/app-icon.png" alt="PortPeek icon" class="hero-icon" width="40" height="40" />
             <span class="hero-name">PortPeek</span>
           </div>
-          <h1>Stop your agents from fighting<br>over ports.</h1>
-          <p class="tagline">A Mac menu bar app with a built-in MCP server.<br>AI agents safely claim dev ports — no conflicts.</p>
+          <h1>Stop your agents from fighting over ports.</h1>
+          <p class="tagline">A Mac menu bar app with a built-in MCP server. AI agents safely claim dev ports — no conflicts.</p>
         </div>
 
         <div class="hero-cta">
@@ -54,12 +55,13 @@
             </svg>
             Coming soon to the Mac App Store
           </div>
-          <form class="email-form" id="email-form">
+          <form class="email-form" id="email-form" novalidate>
             <label for="email-input" class="sr-only">Email address</label>
             <input type="email" id="email-input" placeholder="you@example.com" required autocomplete="email" />
             <button type="submit">Notify me</button>
           </form>
           <p class="success-msg hidden" id="success-msg">You're on the list. Thanks!</p>
+          <p class="error-msg hidden" id="error-msg">Something went wrong — please try again.</p>
         </div>
 
         <!-- App screenshot — hero visual -->
@@ -71,8 +73,8 @@
 
       </div>
 
-      <a class="scroll-indicator" href="#mcp">
-        No Mac app? Get the standalone MCP server <span class="scroll-arrow">↓</span>
+      <a class="scroll-indicator" href="#mcp" aria-label="Jump to MCP server setup">
+        Want just the MCP? <span class="scroll-arrow" aria-hidden="true">↓</span>
       </a>
     </section>
 
@@ -89,55 +91,48 @@
         <!-- Steps -->
         <div class="setup-steps">
 
-          <!-- Step 1: Install (command changes per agent tab) -->
-          <div class="setup-step">
-            <div class="step-gutter">
-              <div class="step-num">1</div>
-              <div class="step-line"></div>
-            </div>
-            <div class="step-content">
+          <!-- Step 1 -->
+          <div class="step-card">
+            <div class="step-card-header">
+              <div class="step-num" aria-hidden="true">1</div>
               <p class="step-title">Install &amp; start</p>
-
-              <button class="click-install-btn" id="click-install-btn">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><polyline points="8 10 12 14 16 10"/></svg>
-                Click to Install
-              </button>
-
-              <div class="install-divider">or install manually</div>
-
-              <div class="install-block">
-                <div class="install-tabs" role="tablist">
-                  <button class="install-tab active" role="tab" data-tab="brew">Homebrew</button>
-                  <button class="install-tab" role="tab" data-tab="download">Download</button>
-                  <button class="install-tab" role="tab" data-tab="clone">Clone</button>
-                </div>
-                <div class="install-panel" id="tab-brew">
-                  <code id="brew-cmd">brew install adamorad/tap/portpeek-mcp &amp;&amp; portpeek-mcp --install-launch-agent</code>
-                  <button class="copy-btn" data-copy="brew-cmd" aria-label="Copy brew command">Copy</button>
-                </div>
-                <div class="install-panel hidden" id="tab-download">
-                  <code id="download-cmd">curl -Lo portpeek-mcp.zip https://github.com/adamorad/portpeek/releases/latest/download/portpeek-mcp-macos-arm64.zip &amp;&amp; unzip portpeek-mcp.zip &amp;&amp; mv portpeek-mcp /usr/local/bin/ &amp;&amp; portpeek-mcp --install-launch-agent</code>
-                  <button class="copy-btn" data-copy="download-cmd" aria-label="Copy download command">Copy</button>
-                </div>
-                <div class="install-panel hidden" id="tab-clone">
-                  <code id="clone-cmd">git clone https://github.com/adamorad/portpeek &amp;&amp; cd portpeek/mcp-server &amp;&amp; swift build -c release &amp;&amp; cp .build/release/portpeek-mcp /usr/local/bin/ &amp;&amp; portpeek-mcp --install-launch-agent</code>
-                  <button class="copy-btn" data-copy="clone-cmd" aria-label="Copy clone command">Copy</button>
-                </div>
-              </div><!-- /install-block -->
+            </div>
+            <button class="click-install-btn" id="click-install-btn" aria-label="Download install-portpeek-mcp.command shell script">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><polyline points="8 10 12 14 16 10"/></svg>
+              Click to Install
+            </button>
+            <p class="install-security-note">Downloads a shell script — macOS will prompt for approval in System Settings → Privacy &amp; Security before it runs</p>
+            <div class="install-divider">or install manually</div>
+            <div class="install-block">
+              <div class="install-tabs" role="tablist" aria-label="Installation method">
+                <button class="install-tab active" role="tab" data-tab="brew" aria-selected="true" aria-controls="tab-brew" id="tab-btn-brew">Homebrew</button>
+                <button class="install-tab" role="tab" data-tab="download" aria-selected="false" aria-controls="tab-download" id="tab-btn-download">Download</button>
+                <button class="install-tab" role="tab" data-tab="clone" aria-selected="false" aria-controls="tab-clone" id="tab-btn-clone">Clone</button>
+              </div>
+              <div class="install-panel" id="tab-brew" role="tabpanel" aria-labelledby="tab-btn-brew">
+                <code id="brew-cmd">brew install adamorad/tap/portpeek-mcp &amp;&amp; portpeek-mcp --install-launch-agent</code>
+                <button class="copy-btn" data-copy="brew-cmd" aria-label="Copy brew command">Copy</button>
+              </div>
+              <div class="install-panel hidden" id="tab-download" role="tabpanel" aria-labelledby="tab-btn-download">
+                <code id="download-cmd">curl -Lo portpeek-mcp.zip https://github.com/adamorad/portpeek/releases/latest/download/portpeek-mcp-macos-arm64.zip &amp;&amp; unzip portpeek-mcp.zip &amp;&amp; mv portpeek-mcp /usr/local/bin/ &amp;&amp; portpeek-mcp --install-launch-agent</code>
+                <button class="copy-btn" data-copy="download-cmd" aria-label="Copy download command">Copy</button>
+              </div>
+              <div class="install-panel hidden" id="tab-clone" role="tabpanel" aria-labelledby="tab-btn-clone">
+                <code id="clone-cmd">git clone https://github.com/adamorad/portpeek &amp;&amp; cd portpeek/mcp-server &amp;&amp; swift build -c release &amp;&amp; cp .build/release/portpeek-mcp /usr/local/bin/ &amp;&amp; portpeek-mcp --install-launch-agent</code>
+                <button class="copy-btn" data-copy="clone-cmd" aria-label="Copy clone command">Copy</button>
+              </div>
             </div>
           </div>
 
-          <!-- Step 2: Add to agent config -->
-          <div class="setup-step">
-            <div class="step-gutter">
-              <div class="step-num">2</div>
-            </div>
-            <div class="step-content">
+          <!-- Step 2 -->
+          <div class="step-card">
+            <div class="step-card-header">
+              <div class="step-num" aria-hidden="true">2</div>
               <p class="step-title">Add to your agent config</p>
-              <div class="config-row">
-                <pre id="config-code">{"mcpServers":{"portpeek":{"url":"http://localhost:27182"}}}</pre>
-                <button class="copy-btn" id="copy-config-btn" aria-label="Copy MCP config">Copy</button>
-              </div>
+            </div>
+            <div class="config-row">
+              <pre id="config-code" title='{"mcpServers":{"portpeek":{"url":"http://localhost:27182"}}}'>{"mcpServers":{"portpeek":{"url":"http://localhost:27182"}}}</pre>
+              <button class="copy-btn" id="copy-config-btn" aria-label="Copy MCP config JSON">Copy</button>
             </div>
           </div>
 
@@ -145,17 +140,17 @@
 
         <div class="fold2-tools">
           <p class="fold2-tools-label">Your agent calls these automatically</p>
-          <div class="tool-pills">
-            <span class="tool-pill">list_active_ports</span>
-            <span class="tool-pill">get_available_port</span>
-            <span class="tool-pill">reserve_port</span>
-            <span class="tool-pill">release_port</span>
+          <div class="tool-pills" role="list" aria-label="Available MCP tools">
+            <span class="tool-pill" role="listitem">list_active_ports</span>
+            <span class="tool-pill" role="listitem">get_available_port</span>
+            <span class="tool-pill" role="listitem">reserve_port</span>
+            <span class="tool-pill" role="listitem">release_port</span>
           </div>
         </div>
 
         <p class="fold2-upgrade">Want port visibility in your menu bar? <a href="#top" class="fold2-upgrade-link">Get PortPeek ↑</a></p>
 
-        <p class="fold2-credit">Built by <a href="https://il.linkedin.com/in/adam-morad" class="fold2-credit-link" target="_blank" rel="noopener">Adam Morad</a></p>
+        <p class="fold2-credit">Built by <a href="https://il.linkedin.com/in/adam-morad" class="fold2-credit-link" target="_blank" rel="noopener noreferrer">Adam Morad</a></p>
 
       </div>
     </section>
