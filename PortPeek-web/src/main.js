@@ -33,12 +33,13 @@ document.querySelectorAll('.copy-btn[data-copy]').forEach(btn => {
   attachCopy(btn, () => document.getElementById(btn.dataset.copy)?.textContent ?? '')
 })
 
-// ── Agent tabs (config section) ───────────────────────────────
+// ── Agent tabs ────────────────────────────────────────────────
 const HTTP_CONFIG  = '{"mcpServers":{"portpeek":{"url":"http://localhost:27182"}}}'
 const STDIO_CONFIG = '{"mcpServers":{"portpeek":{"command":"portpeek-mcp","args":["--stdio"]}}}'
 
-const runStep    = document.getElementById('run-step')
-const configCode = document.getElementById('config-code')
+const runStep       = document.getElementById('run-step')
+const configCode    = document.getElementById('config-code')
+const configStepNum = document.getElementById('config-step-num')
 
 document.querySelectorAll('.agent-tab').forEach(tab => {
   tab.addEventListener('click', () => {
@@ -47,6 +48,7 @@ document.querySelectorAll('.agent-tab').forEach(tab => {
     const isStdio = tab.dataset.agent === 'stdio'
     configCode.textContent = isStdio ? STDIO_CONFIG : HTTP_CONFIG
     if (runStep) runStep.style.display = isStdio ? 'none' : ''
+    if (configStepNum) configStepNum.textContent = isStdio ? '2' : '3'
   })
 })
 
@@ -64,7 +66,6 @@ emailForm.addEventListener('submit', async (e) => {
   const email = emailInput.value
   emailForm.style.display = 'none'
   successMsg.classList.remove('hidden')
-  // Best-effort delivery — fire and forget so UX is never blocked
   fetch('https://formsubmit.co/ajax/adammor17@gmail.com', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
