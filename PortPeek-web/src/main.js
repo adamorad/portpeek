@@ -7,16 +7,41 @@ function attachCopy(btn, getText) {
       .then(() => {
         btn.textContent = 'Copied!'
         btn.classList.add('copied')
-        setTimeout(() => {
-          btn.textContent = 'Copy'
-          btn.classList.remove('copied')
-        }, 2000)
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied') }, 2000)
       })
       .catch(() => {
         btn.textContent = 'Failed'
         setTimeout(() => { btn.textContent = 'Copy' }, 2000)
       })
   })
+}
+
+// ── Command sets per agent type ───────────────────────────────
+const CMDS = {
+  http: {
+    brew:     'brew install adamorad/tap/portpeek-mcp && portpeek-mcp --install-launch-agent',
+    download: 'curl -Lo portpeek-mcp.zip https://github.com/adamorad/portpeek/releases/latest/download/portpeek-mcp-macos-arm64.zip && unzip portpeek-mcp.zip && mv portpeek-mcp /usr/local/bin/ && portpeek-mcp --install-launch-agent',
+    clone:    'git clone https://github.com/adamorad/portpeek && cd portpeek/mcp-server && swift build -c release && cp .build/release/portpeek-mcp /usr/local/bin/ && portpeek-mcp --install-launch-agent',
+    config:   '{"mcpServers":{"portpeek":{"url":"http://localhost:27182"}}}',
+  },
+  stdio: {
+    brew:     'brew install adamorad/tap/portpeek-mcp',
+    download: 'curl -Lo portpeek-mcp.zip https://github.com/adamorad/portpeek/releases/latest/download/portpeek-mcp-macos-arm64.zip && unzip portpeek-mcp.zip && mv portpeek-mcp /usr/local/bin/',
+    clone:    'git clone https://github.com/adamorad/portpeek && cd portpeek/mcp-server && swift build -c release && cp .build/release/portpeek-mcp /usr/local/bin/',
+    config:   '{"mcpServers":{"portpeek":{"command":"portpeek-mcp","args":["--stdio"]}}}',
+  },
+}
+
+const IDS = { brew: 'brew-cmd', download: 'download-cmd', clone: 'clone-cmd' }
+
+function applyAgent(agent) {
+  const cmds = CMDS[agent]
+  Object.entries(IDS).forEach(([tab, id]) => {
+    const el = document.getElementById(id)
+    if (el) el.textContent = cmds[tab]
+  })
+  const cfg = document.getElementById('config-code')
+  if (cfg) cfg.textContent = cmds.config
 }
 
 // ── Install tabs ─────────────────────────────────────────────
@@ -34,26 +59,16 @@ document.querySelectorAll('.copy-btn[data-copy]').forEach(btn => {
 })
 
 // ── Agent tabs ────────────────────────────────────────────────
-const HTTP_CONFIG  = '{"mcpServers":{"portpeek":{"url":"http://localhost:27182"}}}'
-const STDIO_CONFIG = '{"mcpServers":{"portpeek":{"command":"portpeek-mcp","args":["--stdio"]}}}'
-
-const runStep       = document.getElementById('run-step')
-const configCode    = document.getElementById('config-code')
-const configStepNum = document.getElementById('config-step-num')
-
 document.querySelectorAll('.agent-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.agent-tab').forEach(t => t.classList.remove('active'))
     tab.classList.add('active')
-    const isStdio = tab.dataset.agent === 'stdio'
-    configCode.textContent = isStdio ? STDIO_CONFIG : HTTP_CONFIG
-    if (runStep) runStep.style.display = isStdio ? 'none' : ''
-    if (configStepNum) configStepNum.textContent = isStdio ? '2' : '3'
+    applyAgent(tab.dataset.agent)
   })
 })
 
-// ── Config copy button ────────────────────────────────────────
 const copyConfigBtn = document.getElementById('copy-config-btn')
+const configCode    = document.getElementById('config-code')
 if (copyConfigBtn && configCode) attachCopy(copyConfigBtn, () => configCode.textContent)
 
 // ── Email form ────────────────────────────────────────────────
