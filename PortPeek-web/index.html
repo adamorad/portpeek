@@ -89,55 +89,47 @@
         <!-- Steps -->
         <div class="setup-steps">
 
-          <!-- Step 1: Install (command changes per agent tab) -->
-          <div class="setup-step">
-            <div class="step-gutter">
+          <!-- Step 1 -->
+          <div class="step-card">
+            <div class="step-card-header">
               <div class="step-num">1</div>
-              <div class="step-line"></div>
-            </div>
-            <div class="step-content">
               <p class="step-title">Install &amp; start</p>
-
-              <button class="click-install-btn" id="click-install-btn">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><polyline points="8 10 12 14 16 10"/></svg>
-                Click to Install
-              </button>
-
-              <div class="install-divider">or install manually</div>
-
-              <div class="install-block">
-                <div class="install-tabs" role="tablist">
-                  <button class="install-tab active" role="tab" data-tab="brew">Homebrew</button>
-                  <button class="install-tab" role="tab" data-tab="download">Download</button>
-                  <button class="install-tab" role="tab" data-tab="clone">Clone</button>
-                </div>
-                <div class="install-panel" id="tab-brew">
-                  <code id="brew-cmd">brew install adamorad/tap/portpeek-mcp &amp;&amp; portpeek-mcp --install-launch-agent</code>
-                  <button class="copy-btn" data-copy="brew-cmd" aria-label="Copy brew command">Copy</button>
-                </div>
-                <div class="install-panel hidden" id="tab-download">
-                  <code id="download-cmd">curl -Lo portpeek-mcp.zip https://github.com/adamorad/portpeek/releases/latest/download/portpeek-mcp-macos-arm64.zip &amp;&amp; unzip portpeek-mcp.zip &amp;&amp; mv portpeek-mcp /usr/local/bin/ &amp;&amp; portpeek-mcp --install-launch-agent</code>
-                  <button class="copy-btn" data-copy="download-cmd" aria-label="Copy download command">Copy</button>
-                </div>
-                <div class="install-panel hidden" id="tab-clone">
-                  <code id="clone-cmd">git clone https://github.com/adamorad/portpeek &amp;&amp; cd portpeek/mcp-server &amp;&amp; swift build -c release &amp;&amp; cp .build/release/portpeek-mcp /usr/local/bin/ &amp;&amp; portpeek-mcp --install-launch-agent</code>
-                  <button class="copy-btn" data-copy="clone-cmd" aria-label="Copy clone command">Copy</button>
-                </div>
-              </div><!-- /install-block -->
+            </div>
+            <button class="click-install-btn" id="click-install-btn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><polyline points="8 10 12 14 16 10"/></svg>
+              Click to Install
+            </button>
+            <div class="install-divider">or install manually</div>
+            <div class="install-block">
+              <div class="install-tabs" role="tablist">
+                <button class="install-tab active" role="tab" data-tab="brew">Homebrew</button>
+                <button class="install-tab" role="tab" data-tab="download">Download</button>
+                <button class="install-tab" role="tab" data-tab="clone">Clone</button>
+              </div>
+              <div class="install-panel" id="tab-brew">
+                <code id="brew-cmd">brew install adamorad/tap/portpeek-mcp &amp;&amp; portpeek-mcp --install-launch-agent</code>
+                <button class="copy-btn" data-copy="brew-cmd" aria-label="Copy brew command">Copy</button>
+              </div>
+              <div class="install-panel hidden" id="tab-download">
+                <code id="download-cmd">curl -Lo portpeek-mcp.zip https://github.com/adamorad/portpeek/releases/latest/download/portpeek-mcp-macos-arm64.zip &amp;&amp; unzip portpeek-mcp.zip &amp;&amp; mv portpeek-mcp /usr/local/bin/ &amp;&amp; portpeek-mcp --install-launch-agent</code>
+                <button class="copy-btn" data-copy="download-cmd" aria-label="Copy download command">Copy</button>
+              </div>
+              <div class="install-panel hidden" id="tab-clone">
+                <code id="clone-cmd">git clone https://github.com/adamorad/portpeek &amp;&amp; cd portpeek/mcp-server &amp;&amp; swift build -c release &amp;&amp; cp .build/release/portpeek-mcp /usr/local/bin/ &amp;&amp; portpeek-mcp --install-launch-agent</code>
+                <button class="copy-btn" data-copy="clone-cmd" aria-label="Copy clone command">Copy</button>
+              </div>
             </div>
           </div>
 
-          <!-- Step 2: Add to agent config -->
-          <div class="setup-step">
-            <div class="step-gutter">
+          <!-- Step 2 -->
+          <div class="step-card">
+            <div class="step-card-header">
               <div class="step-num">2</div>
-            </div>
-            <div class="step-content">
               <p class="step-title">Add to your agent config</p>
-              <div class="config-row">
-                <pre id="config-code">{"mcpServers":{"portpeek":{"url":"http://localhost:27182"}}}</pre>
-                <button class="copy-btn" id="copy-config-btn" aria-label="Copy MCP config">Copy</button>
-              </div>
+            </div>
+            <div class="config-row">
+              <pre id="config-code">{"mcpServers":{"portpeek":{"url":"http://localhost:27182"}}}</pre>
+              <button class="copy-btn" id="copy-config-btn" aria-label="Copy MCP config">Copy</button>
             </div>
           </div>
 
