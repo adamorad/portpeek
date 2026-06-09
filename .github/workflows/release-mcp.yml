@@ -1,0 +1,32 @@
+name: Release MCP binary
+
+on:
+  push:
+    tags:
+      - 'mcp-v*'
+
+jobs:
+  build-and-release:
+    runs-on: macos-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build portpeek-mcp
+        run: swift build --package-path mcp-server -c release --disable-sandbox
+
+      - name: Package binary
+        run: |
+          cp mcp-server/.build/release/portpeek-mcp portpeek-mcp
+          zip portpeek-mcp-macos-arm64.zip portpeek-mcp
+
+      - name: Upload to GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          gh release upload "$TAG" portpeek-mcp-macos-arm64.zip --clobber

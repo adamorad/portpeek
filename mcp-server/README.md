@@ -9,20 +9,19 @@ Want port visibility in your menu bar? → [Get PortPeek](https://portpeek.dev)
 
 **Homebrew (recommended)**
 ```bash
-brew install portpeek/tap/portpeek-mcp
+brew install adamorad/tap/portpeek-mcp
 ```
 
 **Direct binary**
 ```bash
-# Replace X.Y.Z with the latest release tag
-curl -Lo portpeek-mcp \
-  https://github.com/portpeek/portpeek/releases/download/mcp-vX.Y.Z/portpeek-mcp
-chmod +x portpeek-mcp && mv portpeek-mcp /usr/local/bin/
+curl -Lo portpeek-mcp.zip \
+  https://github.com/adamorad/portpeek/releases/latest/download/portpeek-mcp-macos-arm64.zip
+unzip portpeek-mcp.zip && mv portpeek-mcp /usr/local/bin/
 ```
 
 **Build from source**
 ```bash
-git clone https://github.com/portpeek/portpeek
+git clone https://github.com/adamorad/portpeek
 cd portpeek/mcp-server
 swift build -c release
 cp .build/release/portpeek-mcp /usr/local/bin/
