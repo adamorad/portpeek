@@ -64,9 +64,43 @@
           <p class="error-msg hidden" id="error-msg">Something went wrong — please try again.</p>
         </div>
 
-        <!-- App screenshot — hero visual -->
-        <div class="app-window-wrap">
-          <img src="/app-screenshot.png" alt="PortPeek app showing active ports" class="app-screenshot" width="960" height="1200" />
+        <!-- App UI mockup — hero visual -->
+        <div class="app-window-wrap" aria-hidden="true">
+          <div class="app-mock">
+            <div class="app-mock-titlebar">
+              <span class="app-mock-name">PortPeek</span>
+              <span class="app-mock-mcp"><span class="app-mock-dot"></span>MCP on</span>
+            </div>
+            <div class="app-mock-section">Listening</div>
+            <ul class="app-mock-list">
+              <li class="app-mock-row">
+                <span class="app-mock-indicator"></span>
+                <span class="app-mock-info"><span class="app-mock-proc">next-app</span><span class="app-mock-status">listening</span></span>
+                <span class="app-mock-port">3000</span>
+              </li>
+              <li class="app-mock-row">
+                <span class="app-mock-indicator"></span>
+                <span class="app-mock-info"><span class="app-mock-proc">:5000</span><span class="app-mock-status">listening</span></span>
+                <span class="app-mock-port">5000</span>
+              </li>
+              <li class="app-mock-row">
+                <span class="app-mock-indicator"></span>
+                <span class="app-mock-info"><span class="app-mock-proc">:7000</span><span class="app-mock-status">listening</span></span>
+                <span class="app-mock-port">7000</span>
+              </li>
+              <li class="app-mock-row">
+                <span class="app-mock-indicator"></span>
+                <span class="app-mock-info"><span class="app-mock-proc">Label...</span><span class="app-mock-status">listening</span></span>
+                <span class="app-mock-port">7265</span>
+              </li>
+              <li class="app-mock-row">
+                <span class="app-mock-indicator"></span>
+                <span class="app-mock-info"><span class="app-mock-proc">postgres</span><span class="app-mock-status">listening</span></span>
+                <span class="app-mock-port">8000</span>
+              </li>
+            </ul>
+            <div class="app-mock-footer">scanned 0s ago</div>
+          </div>
         </div>
 
         <p class="compat-strip">Works with Claude · Cursor · Copilot · Cline · Windsurf · any MCP-compatible agent</p>
