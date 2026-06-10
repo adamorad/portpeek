@@ -1,7 +1,7 @@
 import Foundation
 import Darwin
 
-final class PortScanner {
+final class PortScanner: @unchecked Sendable {
     private let timeoutMicroseconds: Int32
     private let queue = DispatchQueue(label: "com.portpeek.scanner", attributes: .concurrent)
 
@@ -65,7 +65,7 @@ final class PortScanner {
     }
 
     private func fdZero(_ set: inout fd_set) {
-        withUnsafeMutableBytes(of: &set) { $0.initializeMemory(as: UInt8.self, repeating: 0) }
+        withUnsafeMutableBytes(of: &set) { _ = $0.initializeMemory(as: UInt8.self, repeating: 0) }
     }
 
     private func fdSet(_ fd: Int32, _ set: inout fd_set) {

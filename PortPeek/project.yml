@@ -18,6 +18,7 @@ targets:
       SWIFT_VERSION: "5.9"
       SWIFT_STRICT_CONCURRENCY: targeted
       MACOSX_DEPLOYMENT_TARGET: "14.0"
+      CODE_SIGN_STYLE: Automatic
     info:
       path: PortPeek/Info.plist
       properties:
