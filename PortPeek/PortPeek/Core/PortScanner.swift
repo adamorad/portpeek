@@ -2,6 +2,9 @@ import Foundation
 import Darwin
 
 final class PortScanner: @unchecked Sendable {
+    // Probing these ports triggers macOS security prompts (SMB/AFP/NFS/NetBIOS)
+    private static let blockedPorts: Set<Int> = [139, 445, 548, 2049]
+
     private let timeoutMicroseconds: Int32
     private let queue = DispatchQueue(label: "com.portpeek.scanner", attributes: .concurrent)
 
@@ -24,6 +27,7 @@ final class PortScanner: @unchecked Sendable {
 
     func probePort(_ port: Int) async -> Bool {
         guard port >= 1, port <= 65535 else { return false }
+        guard !Self.blockedPorts.contains(port) else { return false }
         return await withCheckedContinuation { continuation in
             queue.async { continuation.resume(returning: self.tcpProbe(port: UInt16(port))) }
         }
