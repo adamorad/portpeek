@@ -29,11 +29,14 @@ final class PortScanner: @unchecked Sendable {
         guard port >= 1, port <= 65535 else { return false }
         guard !Self.blockedPorts.contains(port) else { return false }
         return await withCheckedContinuation { continuation in
-            queue.async { continuation.resume(returning: self.tcpProbe(port: UInt16(port))) }
+            queue.async {
+                let result = self.tcpProbe4(port: UInt16(port)) || self.tcpProbe6(port: UInt16(port))
+                continuation.resume(returning: result)
+            }
         }
     }
 
-    private func tcpProbe(port: UInt16) -> Bool {
+    private func tcpProbe4(port: UInt16) -> Bool {
         let sock = Darwin.socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)
         guard sock >= 0 else { return false }
         defer { Darwin.close(sock) }
@@ -47,12 +50,41 @@ final class PortScanner: @unchecked Sendable {
         addr.sin_port   = port.bigEndian
         inet_pton(AF_INET, "127.0.0.1", &addr.sin_addr)
 
+        return connectAndCheck(sock: sock, addr: addr)
+    }
+
+    private func tcpProbe6(port: UInt16) -> Bool {
+        let sock = Darwin.socket(AF_INET6, SOCK_STREAM, IPPROTO_TCP)
+        guard sock >= 0 else { return false }
+        defer { Darwin.close(sock) }
+
+        let flags = fcntl(sock, F_GETFL, 0)
+        guard flags >= 0, fcntl(sock, F_SETFL, flags | O_NONBLOCK) == 0 else { return false }
+
+        var addr = sockaddr_in6()
+        addr.sin6_len    = UInt8(MemoryLayout<sockaddr_in6>.size)
+        addr.sin6_family = sa_family_t(AF_INET6)
+        addr.sin6_port   = port.bigEndian
+        inet_pton(AF_INET6, "::1", &addr.sin6_addr)
+
+        let rc = withUnsafePointer(to: addr) { ptr in
+            ptr.withMemoryRebound(to: sockaddr.self, capacity: 1) {
+                Darwin.connect(sock, $0, socklen_t(MemoryLayout<sockaddr_in6>.size))
+            }
+        }
+        return checkConnect(sock: sock, rc: rc)
+    }
+
+    private func connectAndCheck(sock: Int32, addr: sockaddr_in) -> Bool {
         let rc = withUnsafePointer(to: addr) { ptr in
             ptr.withMemoryRebound(to: sockaddr.self, capacity: 1) {
                 Darwin.connect(sock, $0, socklen_t(MemoryLayout<sockaddr_in>.size))
             }
         }
+        return checkConnect(sock: sock, rc: rc)
+    }
 
+    private func checkConnect(sock: Int32, rc: Int32) -> Bool {
         if rc == 0 { return true }
         guard errno == EINPROGRESS else { return false }
 
