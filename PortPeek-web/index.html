@@ -189,6 +189,122 @@
         </a>
 
       </div>
+
+      <a class="scroll-indicator" href="#compare" aria-label="Jump to comparison">
+        How does it compare? <span class="scroll-arrow" aria-hidden="true">↓</span>
+      </a>
+    </section>
+
+    <!-- ── Fold 3: Comparison ────────────────────────────────── -->
+    <section class="fold3" id="compare">
+      <div class="fold3-inner">
+
+        <div class="fold3-header">
+          <span class="fold3-label">Port management for AI agents</span>
+          <h2 class="fold3-headline">Three ways to manage ports.<br><span class="fold3-headline-accent">One clear winner.</span></h2>
+          <p class="fold3-sub">How do your agents coordinate dev ports when they all run at once?</p>
+        </div>
+
+        <div class="compare-grid">
+
+          <!-- Shell Commands -->
+          <div class="compare-card">
+            <div class="compare-card-icon compare-card-icon--gray">🖥️</div>
+            <div class="compare-card-title">Shell Commands</div>
+            <div class="compare-card-subtitle">lsof · ss · netstat</div>
+            <ul class="compare-rows">
+              <li class="compare-row compare-row--no">
+                <span class="compare-row-dot"></span>
+                <span class="compare-row-text"><span class="compare-row-cat">Agent awareness</span><span class="compare-row-val">None — agent can't see ports</span></span>
+              </li>
+              <li class="compare-row compare-row--no">
+                <span class="compare-row-dot"></span>
+                <span class="compare-row-text"><span class="compare-row-cat">Who calls it</span><span class="compare-row-val">You, manually</span></span>
+              </li>
+              <li class="compare-row compare-row--no">
+                <span class="compare-row-dot"></span>
+                <span class="compare-row-text"><span class="compare-row-cat">Port reservation</span><span class="compare-row-val">No — race conditions</span></span>
+              </li>
+              <li class="compare-row compare-row--no">
+                <span class="compare-row-dot"></span>
+                <span class="compare-row-text"><span class="compare-row-cat">Multi-agent safe</span><span class="compare-row-val">No — agents conflict</span></span>
+              </li>
+              <li class="compare-row compare-row--no">
+                <span class="compare-row-dot"></span>
+                <span class="compare-row-text"><span class="compare-row-cat">Works across tools</span><span class="compare-row-val">No</span></span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Claude Code Skills -->
+          <div class="compare-card">
+            <div class="compare-card-icon compare-card-icon--blue">⚡</div>
+            <div class="compare-card-title">Claude Code Skills</div>
+            <div class="compare-card-subtitle">session-scoped · one agent</div>
+            <ul class="compare-rows">
+              <li class="compare-row compare-row--partial">
+                <span class="compare-row-dot"></span>
+                <span class="compare-row-text"><span class="compare-row-cat">Agent awareness</span><span class="compare-row-val">This session only</span></span>
+              </li>
+              <li class="compare-row compare-row--yes">
+                <span class="compare-row-dot"></span>
+                <span class="compare-row-text"><span class="compare-row-cat">Who calls it</span><span class="compare-row-val">Agent, via skill</span></span>
+              </li>
+              <li class="compare-row compare-row--no">
+                <span class="compare-row-dot"></span>
+                <span class="compare-row-text"><span class="compare-row-cat">Port reservation</span><span class="compare-row-val">No shared state</span></span>
+              </li>
+              <li class="compare-row compare-row--no">
+                <span class="compare-row-dot"></span>
+                <span class="compare-row-text"><span class="compare-row-cat">Multi-agent safe</span><span class="compare-row-val">No — one session</span></span>
+              </li>
+              <li class="compare-row compare-row--no">
+                <span class="compare-row-dot"></span>
+                <span class="compare-row-text"><span class="compare-row-cat">Works across tools</span><span class="compare-row-val">Claude Code only</span></span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- PortPeek MCP (featured) -->
+          <div class="compare-card compare-card--featured">
+            <div class="compare-card-badge">Recommended</div>
+            <div class="compare-card-icon compare-card-icon--indigo">🔌</div>
+            <div class="compare-card-title">PortPeek MCP</div>
+            <div class="compare-card-subtitle">portpeek-mcp · shared daemon</div>
+            <ul class="compare-rows">
+              <li class="compare-row compare-row--yes">
+                <span class="compare-row-dot"></span>
+                <span class="compare-row-text"><span class="compare-row-cat">Agent awareness</span><span class="compare-row-val">All agents, machine-wide</span></span>
+              </li>
+              <li class="compare-row compare-row--yes">
+                <span class="compare-row-dot"></span>
+                <span class="compare-row-text"><span class="compare-row-cat">Who calls it</span><span class="compare-row-val">Any agent, via MCP</span></span>
+              </li>
+              <li class="compare-row compare-row--yes">
+                <span class="compare-row-dot"></span>
+                <span class="compare-row-text"><span class="compare-row-cat">Port reservation</span><span class="compare-row-val">Atomic — no race conditions</span></span>
+              </li>
+              <li class="compare-row compare-row--yes">
+                <span class="compare-row-dot"></span>
+                <span class="compare-row-text"><span class="compare-row-cat">Multi-agent safe</span><span class="compare-row-val">Yes — Claude + Cursor + Copilot</span></span>
+              </li>
+              <li class="compare-row compare-row--yes">
+                <span class="compare-row-dot"></span>
+                <span class="compare-row-text"><span class="compare-row-cat">Works across tools</span><span class="compare-row-val">Any MCP-compatible agent</span></span>
+              </li>
+            </ul>
+          </div>
+
+        </div><!-- /compare-grid -->
+
+        <div class="compare-insight">
+          <span class="compare-insight-dot"></span>
+          <p>Shell commands and skills give <strong>one agent</strong> port visibility for one moment. PortPeek gives <strong>every agent</strong> a shared coordination layer — Agent A reserves <code>:3000</code>, Agent B automatically gets a different port. No conflicts. No manual work.</p>
+        </div>
+
+        <a href="#mcp" class="fold3-upgrade-link">← Get the MCP server</a>
+
+      </div>
     </section>
 
     <script type="module" src="/src/main.js"></script>
