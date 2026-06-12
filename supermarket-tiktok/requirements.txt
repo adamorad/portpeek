@@ -1,0 +1,9 @@
+il-supermarket-scraper
+# il-supermarket-parsers does not exist on PyPI; parsing is built into il-supermarket-scraper
+Pillow>=10.0
+moviepy>=2.0
+python-bidi>=0.4.2
+anthropic>=0.25.0
+python-dotenv>=1.0
+defusedxml>=0.7.1
+pytest>=8.0

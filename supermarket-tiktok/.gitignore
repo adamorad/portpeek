@@ -1,0 +1,12 @@
+data/raw/
+data/parsed/
+data/promotions.json
+data/comparison.json
+output/*.mp4
+output/*.png
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+*.log
