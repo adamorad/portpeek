@@ -1,7 +1,9 @@
 # supermarket-tiktok/scrape.py
-import os
+from pathlib import Path
 from il_supermarket_scarper import ScarpingTask
 from il_supermarket_scarper.utils.file_types import FileTypesFilters
+
+RAW_DIR = Path(__file__).parent / "data" / "raw"
 
 CHAINS = [
     "SHUFERSAL",
@@ -11,7 +13,7 @@ CHAINS = [
     "HAZI_HINAM",
     "TIV_TAAM",
     "MAHSANI_ASHUK",
-    "VICTORY",
+    "VICTORY_NEW_SOURCE",
     "YAYNO_BITAN_AND_CARREFOUR",
 ]
 
@@ -39,7 +41,7 @@ def get_valid_chains():
 
 
 def main():
-    os.makedirs("data/raw", exist_ok=True)
+    RAW_DIR.mkdir(parents=True, exist_ok=True)
     chains = get_valid_chains()
     print(f"Scraping {len(chains)} chains: {chains}")
 
@@ -48,16 +50,16 @@ def main():
         files_types=FILE_TYPES,
         output_configuration={
             "output_mode": "disk",
-            "base_storage_path": "data/raw",
+            "base_storage_path": str(RAW_DIR),
         },
         status_configuration={
             "database_type": "json",
-            "base_path": "data/raw/status",
+            "base_path": str(RAW_DIR / "status"),
         },
     )
     task.start()
     task.join()
-    print("Scraping complete. Files saved to data/raw/")
+    print(f"Scraping complete. Files saved to {RAW_DIR}")
 
 
 if __name__ == "__main__":
