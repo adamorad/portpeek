@@ -104,3 +104,30 @@ def test_parse_promo_xml_handles_variant_b_group_structure():
     assert promos[0]["barcode"] == "7290108879671"
     assert promos[0]["sale_price"] == 3.90
     assert promos[0]["promo_description"] == "מחיר שבועי"
+
+
+def test_build_promotions_skips_expired_promotions():
+    # end_date in the past should be excluded
+    expired_promos = [{
+        "barcode": "7290000066646",
+        "sale_price": 4.90,
+        "promo_description": "מבצע ישן",
+        "start_date": "2020-01-01",
+        "end_date": "2020-01-07",  # clearly expired
+    }]
+    prices = {"7290000066646": {"name": "חלב תנובה 3% 1L", "price": 5.90}}
+    result = build_promotions("שופרסל", expired_promos, prices)
+    assert len(result) == 0
+
+
+def test_build_promotions_deduplicates_same_barcode():
+    # Same barcode appearing twice (e.g. two store files) should appear once
+    duplicate_promos = [
+        {"barcode": "7290000066646", "sale_price": 4.90, "promo_description": "מבצע",
+         "start_date": "2026-06-10", "end_date": "2026-06-16"},
+        {"barcode": "7290000066646", "sale_price": 4.90, "promo_description": "מבצע",
+         "start_date": "2026-06-10", "end_date": "2026-06-16"},
+    ]
+    prices = {"7290000066646": {"name": "חלב תנובה 3% 1L", "price": 5.90}}
+    result = build_promotions("שופרסל", duplicate_promos, prices)
+    assert len(result) == 1

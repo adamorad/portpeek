@@ -91,8 +91,9 @@ def render_product_slide(product_name: str, deals: dict) -> Image.Image:
             orig_font = _font(36)
             draw.text((330, y + 30), orig_text, font=orig_font, anchor="la", fill=GREY)
             bbox = orig_font.getbbox(orig_text)
+            text_width = bbox[2] - bbox[0]
             mid_y = y + 30 + (bbox[3] - bbox[1]) // 2
-            draw.line([(330, mid_y), (330 + bbox[2], mid_y)], fill=GREY, width=2)
+            draw.line([(330 + bbox[0], mid_y), (330 + bbox[0] + text_width, mid_y)], fill=GREY, width=2)
 
         draw.line([(60, y + row_h - 10), (W - 60, y + row_h - 10)], fill="#333333", width=1)
 

@@ -196,6 +196,9 @@ def build_promotions(
         # Skip expired promotions
         if promo["end_date"] and promo["end_date"] < today:
             continue
+        # Skip if sale price is not actually cheaper than regular price
+        if promo["sale_price"] >= prices[barcode]["price"]:
+            continue
         # Deduplicate same barcode within same chain
         key = f"{barcode}:{chain}"
         if key in seen:
