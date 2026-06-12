@@ -4,7 +4,7 @@ from datetime import date
 from pathlib import Path
 
 CATEGORY_KEYWORDS = {
-    "מוצרי חלב": ["חלב", "גבינה", "יוגורט", "שמנת", "חמאה", "קוטג", "לבן", "גבן", "ריקוטה"],
+    "מוצרי חלב": ["חלב", "גבינה", "יוגורט", "חמאה", "קוטג", "לבן", "גבן", "ריקוטה"],
     "בשר ועוף": ["בשר", "עוף", "פרגית", "כנפיים", "שניצל", "קציצ", "נקניק", "סלמי", "הודו", "טחון"],
     "ירקות ופירות": ["עגבני", "מלפפון", "פלפל", "חסה", "גזר", "בצל", "תפוח", "בננ", "תות", "אבוקדו", "פטריה"],
     "שתייה": ["קולה", "פנטה", "מים", "מיץ", "בירה", "יין", "שתייה", "סודה", "ספרייט"],
@@ -65,10 +65,13 @@ def build_comparison(categorized: list[dict]) -> dict:
     for cat_name, products in by_category.items():
         # Sort by number of chains (most widely available first), cap at 20
         products.sort(key=lambda p: len(p["deals"]), reverse=True)
-        categories.append({"name": cat_name, "products": products[:20]})
+        categories.append({"name": cat_name, "products": products[:20], "total_count": len(products)})
 
-    # Sort categories by product count
-    categories.sort(key=lambda c: len(c["products"]), reverse=True)
+    # Sort categories by uncapped product count (before the 20-cap)
+    categories.sort(key=lambda c: c["total_count"], reverse=True)
+    # Remove internal-only field from output
+    for cat in categories:
+        cat.pop("total_count")
 
     return {
         "generated_at": date.today().isoformat(),
