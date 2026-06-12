@@ -13,10 +13,13 @@ Variant B (Shufersal, RamiLevy, Osherad, TivTaam):
 
 import gzip
 import json
+import logging
 from datetime import date
 from pathlib import Path
 
 import defusedxml.ElementTree as ET
+
+logger = logging.getLogger(__name__)
 
 CHAIN_DISPLAY_NAMES = {
     "shufersal": "שופרסל",
@@ -59,7 +62,8 @@ def parse_promo_xml(xml_content: str) -> list[dict]:
     """
     try:
         root = ET.fromstring(xml_content)
-    except Exception:
+    except Exception as exc:
+        logger.warning("Failed to parse XML: %s", exc)
         return []
 
     promotions = []
@@ -73,27 +77,54 @@ def parse_promo_xml(xml_content: str) -> list[dict]:
         end_date = end[:10] if end else ""
 
         # --- Variant B: PromotionItem elements carry their own DiscountedPrice ---
-        for item in promo.iter("PromotionItem"):
-            barcode = _find_text(item, "ItemCode")
-            if not barcode:
-                continue
-            item_price_str = _find_text(item, "DiscountedPrice")
-            price_str = item_price_str or promo_price_str
-            if not price_str:
-                continue
-            try:
-                sale_price = float(price_str)
-            except ValueError:
-                continue
-            if sale_price <= 0:
-                continue
-            promotions.append({
-                "barcode": barcode,
-                "sale_price": sale_price,
-                "promo_description": desc,
-                "start_date": start_date,
-                "end_date": end_date,
-            })
+        # Price may live on the item itself or on its parent <Group> element.
+        for group in promo.iter("Group"):
+            group_price_str = _find_text(group, "DiscountedPrice")
+            for item in group.iter("PromotionItem"):
+                barcode = _find_text(item, "ItemCode")
+                if not barcode:
+                    continue
+                item_price_str = _find_text(item, "DiscountedPrice")
+                price_str = item_price_str or group_price_str or promo_price_str
+                if not price_str:
+                    continue
+                try:
+                    sale_price = float(price_str)
+                except ValueError:
+                    continue
+                if sale_price <= 0:
+                    continue
+                promotions.append({
+                    "barcode": barcode,
+                    "sale_price": sale_price,
+                    "promo_description": desc,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                })
+
+        # Handle PromotionItem elements outside any Group (flat Variant B)
+        if promo.find("Group") is None:
+            for item in promo.iter("PromotionItem"):
+                barcode = _find_text(item, "ItemCode")
+                if not barcode:
+                    continue
+                item_price_str = _find_text(item, "DiscountedPrice")
+                price_str = item_price_str or promo_price_str
+                if not price_str:
+                    continue
+                try:
+                    sale_price = float(price_str)
+                except ValueError:
+                    continue
+                if sale_price <= 0:
+                    continue
+                promotions.append({
+                    "barcode": barcode,
+                    "sale_price": sale_price,
+                    "promo_description": desc,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                })
 
         # --- Variant A: Item elements at PromotionItems level, price from Promotion ---
         # Only run this if no PromotionItem children found (avoid double-counting)
@@ -125,7 +156,8 @@ def parse_price_xml(xml_content: str) -> dict[str, dict]:
     """Parse a price XML string into a barcode -> {name, price} dict."""
     try:
         root = ET.fromstring(xml_content)
-    except Exception:
+    except Exception as exc:
+        logger.warning("Failed to parse XML: %s", exc)
         return {}
 
     prices = {}
