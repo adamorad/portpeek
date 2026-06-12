@@ -5,6 +5,7 @@ from datetime import date
 from pathlib import Path
 
 from bidi.algorithm import get_display
+from moviepy import ImageSequenceClip, AudioFileClip
 from PIL import Image, ImageDraw, ImageFont
 
 W, H = 1080, 1920
@@ -106,8 +107,8 @@ def render_closing_slide() -> Image.Image:
     return img
 
 
-def generate_video(category_name: str, products: list[dict], output_path: str):
-    today = date.today().isoformat()
+def generate_video(category_name: str, products: list[dict], output_path: str, date_str: str | None = None):
+    today = date_str or date.today().isoformat()
 
     with tempfile.TemporaryDirectory() as tmp:
         frames = []
@@ -127,14 +128,12 @@ def generate_video(category_name: str, products: list[dict], output_path: str):
 
         frames.append(save_frame(render_closing_slide(), frame_idx))
 
-        from moviepy import ImageSequenceClip, AudioFileClip
-
         fps = 1 / 2.5
         clip = ImageSequenceClip(frames, fps=fps)
 
-        music_path = str(ASSETS_DIR / "music.mp3")
-        if os.path.exists(music_path):
-            audio = AudioFileClip(music_path)
+        music_path = ASSETS_DIR / "music.mp3"
+        if music_path.exists():
+            audio = AudioFileClip(str(music_path))
             if audio.duration > clip.duration:
                 audio = audio.subclipped(0, clip.duration)
             clip = clip.with_audio(audio)
@@ -163,7 +162,7 @@ def main():
         safe_name = name.replace(" ", "_").replace("/", "-")
         output_path = str(out_dir / f"video_{safe_name}_{today}.mp4")
         print(f"Generating: {name} ({len(products)} products)")
-        generate_video(name, products, output_path)
+        generate_video(name, products, output_path, date_str=today)
 
     print("Done. Upload files from output/ to TikTok.")
 
