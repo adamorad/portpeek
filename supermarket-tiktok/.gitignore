@@ -2,8 +2,8 @@ data/raw/
 data/parsed/
 data/promotions.json
 data/comparison.json
-output/*.mp4
-output/*.png
+output/*
+!output/.gitkeep
 .env
 __pycache__/
 *.pyc
